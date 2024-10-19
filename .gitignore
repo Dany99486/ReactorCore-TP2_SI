@@ -11,6 +11,7 @@ target/
 *.iws
 *.iml
 *.ipr
+r
 
 ### Eclipse ###
 .apt_generated
@@ -36,3 +37,5 @@ build/
 
 ### Mac OS ###
 .DS_Store
+src/main/resources/application.properties
+src/main/resources/application.properties
