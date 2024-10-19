@@ -1,9 +1,10 @@
 package org.example.repository;
 
-
 import org.example.model.Media;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface MediaRepository extends JpaRepository<Media, Long> {
-    // Adicione consultas personalizadas aqui, se necessário.
+@Repository
+public interface MediaRepository extends ReactiveCrudRepository<Media, Long> {
+    // Adicione métodos personalizados se necessário
 }
