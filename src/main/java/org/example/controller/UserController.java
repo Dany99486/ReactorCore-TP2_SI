@@ -3,7 +3,9 @@ package org.example.controller;
 import org.example.model.User;
 import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import reactor.core.publisher.Flux;
@@ -42,7 +44,12 @@ public class UserController {
 
     // Endpoint para excluir um usuário
     @DeleteMapping("/{id}")
-    public Mono<Void> deleteUser(@PathVariable Long id) {
-        return userService.deleteUser(id);
+    public Mono<ResponseEntity<String>> deleteUser(@PathVariable Long id) {
+        return userService.deleteUser(id)
+                .then(Mono.just(ResponseEntity.ok("")))
+                .onErrorResume(e -> {
+                    // Em caso de erro, retorne uma resposta com o status 400 e a mensagem de erro
+                    return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()));
+                });
     }
 }

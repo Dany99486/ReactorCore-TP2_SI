@@ -2,6 +2,7 @@ package org.example.service;
 
 import org.example.model.Media;
 import org.example.repository.MediaRepository;
+import org.example.repository.UserMediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -12,6 +13,8 @@ public class MediaService {
 
     @Autowired
     private MediaRepository mediaRepository;
+    @Autowired
+    private UserMediaRepository userMediaRepository;
 
     // Método para obter todas as mídias
     public Flux<Media> getAllMedia() {
@@ -43,6 +46,15 @@ public class MediaService {
 
     // Método para excluir uma mídia
     public Mono<Void> deleteMedia(Long id) {
-        return mediaRepository.deleteById(id); // Método reativo para deletar
+        // Primeiro, verifique se existem relações associadas a esta mídia
+        return userMediaRepository.existsByMediaId(id)
+                .flatMap(exists -> {
+                    if (exists) {
+                        return Mono.error(new RuntimeException("Cannot delete media. It is associated with a user."));
+                    }else
+                        return mediaRepository.deleteById(id);
+
+                });
     }
+
 }

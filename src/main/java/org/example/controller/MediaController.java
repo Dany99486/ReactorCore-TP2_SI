@@ -3,7 +3,9 @@ package org.example.controller;
 import org.example.model.Media;
 import org.example.service.MediaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import reactor.core.publisher.Flux;
@@ -37,7 +39,12 @@ public class MediaController {
     }
 
     @DeleteMapping("/{id}")
-    public Mono<Void> deleteMedia(@PathVariable Long id) {
-        return mediaService.deleteMedia(id);
+    public Mono<ResponseEntity<String>> deleteMedia(@PathVariable Long id) {
+        return mediaService.deleteMedia(id)
+                .then(Mono.just(ResponseEntity.ok("")))
+                .onErrorResume(e -> {
+                    // Em caso de erro, retorne uma resposta com o status 400 e a mensagem de erro
+                    return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()));
+                });
     }
 }

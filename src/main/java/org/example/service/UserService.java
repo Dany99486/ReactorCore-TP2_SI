@@ -1,9 +1,12 @@
 package org.example.service;
 
 import org.example.model.User;
+import org.example.repository.UserMediaRepository;
 import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -12,6 +15,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserMediaRepository userMediaRepository;
 
     // Método para obter todos os usuários
     public Flux<User> getAllUsers() {
@@ -42,6 +47,11 @@ public class UserService {
 
     // Método para excluir um usuário
     public Mono<Void> deleteUser(Long id) {
-        return userRepository.deleteById(id);
-    }
+        return userMediaRepository.existsByUserId(id)  // Verifica se o usuário está em uma relação
+                .flatMap(exists -> {
+                    if (exists)
+                        return Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, "User cannot be deleted because it is linked to media"));
+                    else
+                        return userRepository.deleteById(id); // Chama o método delete apenas se o usuário não estiver vinculado a nenhuma mídia
+                });    }
 }
