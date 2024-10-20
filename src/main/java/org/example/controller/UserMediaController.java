@@ -4,6 +4,7 @@ import org.example.model.User;
 import org.example.model.UserMedia;
 import org.example.service.UserMediaService;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -26,5 +27,10 @@ public class UserMediaController {
     @DeleteMapping("/remove")
     public Mono<Void> removeUserFromMedia(@RequestParam Long userId, @RequestParam Long mediaId) {
         return userMediaService.removeUserFromMedia(userId, mediaId);
+    }
+    @GetMapping("/user/{userId}")
+    public Flux<Long> getMediaIdsByUserId(@PathVariable Long userId) {
+        return userMediaService.getMediaIdsByUserId(userId);
+        
     }
 }
