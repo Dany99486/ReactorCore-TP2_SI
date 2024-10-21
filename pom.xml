@@ -13,19 +13,6 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>demo</name>
   <description>Demo project for Spring Boot</description>
-  <url/>
-  <licenses>
-    <license/>
-  </licenses>
-  <developers>
-    <developer/>
-  </developers>
-  <scm>
-    <connection/>
-    <developerConnection/>
-    <tag/>
-    <url/>
-  </scm>
   <properties>
     <java.version>17</java.version>
   </properties>
@@ -44,17 +31,10 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-      <groupId>io.asyncer</groupId>
-      <artifactId>r2dbc-mysql</artifactId>
-      <version>1.2.0</version>
+      <groupId>io.r2dbc</groupId>
+      <artifactId>r2dbc-postgresql</artifactId>
+      <version>0.8.8.RELEASE</version>
     </dependency>
-    <!-- <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <version>3.3.4</version>
-      <scope>test</scope>
-    </dependency>
-     -->
     <dependency>
       <groupId>io.projectreactor</groupId>
       <artifactId>reactor-test</artifactId>
@@ -78,5 +58,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>

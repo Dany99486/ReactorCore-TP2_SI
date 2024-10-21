@@ -13,20 +13,26 @@ USER root
 
 # Update and install necessary packages
 RUN apt update -y && apt install -y \
-    sudo \
-    vim \
-    zsh \
-    less \
-    postgresql-client \
-    && apt clean all
+  sudo \
+  vim \
+  zsh \
+  less \
+  postgresql-client \
+  unzip \
+  && apt clean all
 
 # Add the user, set password, and add to sudo group
 RUN useradd -m -s /bin/zsh -G sudo $USER_NAME \
-    && echo "${USER_NAME}:${USER_PASSWORD}" | chpasswd \
-    && usermod -aG sudo ${USER_NAME}
+  && echo "${USER_NAME}:${USER_PASSWORD}" | chpasswd \
+  && usermod -aG sudo ${USER_NAME}
 
 # Allow the new user to use sudo without a password (optional for convenience)
 RUN echo "${USER_NAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# install jax-ws (wsimport.sh)
+RUN curl -LO https://repo1.maven.org/maven2/com/sun/xml/ws/jaxws-ri/4.0.3/jaxws-ri-4.0.3.zip \
+  && unzip jaxws-ri-4.0.3.zip
+ENV PATH="/jaxws-ri/bin/:${PATH}"
 
 # Switch to the new user
 USER $USER_NAME
