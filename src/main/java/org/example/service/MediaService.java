@@ -33,6 +33,13 @@ public class MediaService {
 
     // Método para atualizar uma mídia
     public Mono<Media> updateMedia(Long id, Media media) {
+        // Verifica se a mídia fornecida está no formato correto
+        if (media.getTitle() == null || media.getTitle().isEmpty() ||
+            media.getReleaseDate() == null || media.getAverageRating() == 0.0 ||
+            media.getType() == null || media.getType().isEmpty()) {
+            return Mono.error(new RuntimeException("Invalid media format"));
+        }
+
         return mediaRepository.findById(id)
                 .flatMap(existingMedia -> {
                     existingMedia.setTitle(media.getTitle());

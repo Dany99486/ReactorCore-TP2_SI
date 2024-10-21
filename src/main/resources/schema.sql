@@ -1,5 +1,5 @@
 -- Tabela de usuários
-CREATE TABLE IF NOT EXISTS "user" (
+CREATE TABLE IF NOT EXISTS users (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR(255) NOT NULL,
     age INT NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS user_media (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id BIGINT NOT NULL,
     media_id BIGINT NOT NULL,
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES "user"(id) ON DELETE CASCADE,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     CONSTRAINT fk_media FOREIGN KEY (media_id) REFERENCES media(id) ON DELETE CASCADE,
     UNIQUE(user_id, media_id)  -- Para garantir que a combinação de user e media seja única
 );

@@ -29,22 +29,27 @@ public class MediaController {
     }
 
     @GetMapping("/{id}")
-    public Mono<Media> getMediaById(@PathVariable Long id) {
-        return mediaService.getMediaById(id);
+    public Mono<ResponseEntity<Media>> getMediaById(@PathVariable Long id) {
+        return mediaService.getMediaById(id)
+                .map(media -> ResponseEntity.ok(media))
+                .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build()));
     }
 
     @PutMapping("/{id}")
-    public Mono<Media> updateMedia(@PathVariable Long id, @RequestBody Media media) {
-        return mediaService.updateMedia(id, media);
+    public Mono<ResponseEntity<Media>> updateMedia(@PathVariable Long id, @RequestBody Media media) {
+        return mediaService.getMediaById(id)
+                .flatMap(existingMedia -> mediaService.updateMedia(id, media)
+                        .map(updatedMedia -> ResponseEntity.ok(updatedMedia)))
+                .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build()));
     }
 
     @DeleteMapping("/{id}")
     public Mono<ResponseEntity<String>> deleteMedia(@PathVariable Long id) {
-        return mediaService.deleteMedia(id)
-                .then(Mono.just(ResponseEntity.ok("")))
-                .onErrorResume(e -> {
-                    // Em caso de erro, retorne uma resposta com o status 400 e a mensagem de erro
-                    return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()));
-                });
+        return mediaService.getMediaById(id)
+                .flatMap(media -> mediaService.deleteMedia(id)
+                        .then(Mono.just(ResponseEntity.ok("Media deleted successfully"))))
+                
+                // Tratamento de erro para o caso de a mídia não existir, sendo retornado um status 404
+                .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build()));
     }
 }

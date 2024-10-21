@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    env_file: .env
+    networks:
+      - server-network
+  server:
+    working_dir: /workspace/ReactorCore-TP2_SI
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: mvn spring-boot:run
+    env_file: .env
+    networks:
+      - server-network
+    volumes:
+      - ..:/workspace
+    user: root
+    ports:
+      - "8080:8080"
+
+networks:
+  server-network:
