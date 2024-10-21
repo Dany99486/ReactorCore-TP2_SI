@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
 
 @Service
 public class UserMediaService {
-
+    
     private final UserMediaRepository userMediaRepository;
 
     public UserMediaService(UserMediaRepository userMediaRepository) {
@@ -16,8 +16,10 @@ public class UserMediaService {
     }
 
     // Criar relação entre User e Media
-    public Mono<UserMedia> addUserToMedia(UserMedia userMedia) {
-        return userMediaRepository.save(userMedia);
+    public Mono<Object> addUserToMedia(UserMedia userMedia) {
+        return userMediaRepository.findByUserIdAndMediaId(userMedia.getUserId(), userMedia.getMediaId())
+                .flatMap(existingUserMedia -> Mono.error(new IllegalStateException("Duplicate relationship")))
+                .switchIfEmpty(userMediaRepository.save(userMedia));
     }
 
     // Remover relação entre User e Media

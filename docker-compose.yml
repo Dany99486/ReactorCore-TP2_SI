@@ -8,6 +8,12 @@ services:
     env_file: .env
     networks:
       - server-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        
   server:
     working_dir: /workspace/ReactorCore-TP2_SI
     build:
@@ -22,6 +28,11 @@ services:
     user: root
     ports:
       - "8080:8080"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 networks:
   server-network:

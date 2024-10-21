@@ -33,15 +33,11 @@ public class MediaService {
 
     // Método para atualizar uma mídia
     public Mono<Media> updateMedia(Long id, Media media) {
-        // Verifica se a mídia fornecida está no formato correto
-        if (media.getTitle() == null || media.getTitle().isEmpty() ||
-            media.getReleaseDate() == null || media.getAverageRating() == 0.0 ||
-            media.getType() == null || media.getType().isEmpty()) {
-            return Mono.error(new RuntimeException("Invalid media format"));
-        }
-
         return mediaRepository.findById(id)
                 .flatMap(existingMedia -> {
+                    if (existingMedia == null) {
+                        return Mono.error(new RuntimeException("Media not found"));
+                    }
                     existingMedia.setTitle(media.getTitle());
                     existingMedia.setReleaseDate(media.getReleaseDate());
                     existingMedia.setAverageRating(media.getAverageRating());
@@ -60,7 +56,6 @@ public class MediaService {
                         return Mono.error(new RuntimeException("Cannot delete media. It is associated with a user."));
                     }else
                         return mediaRepository.deleteById(id);
-
                 });
     }
 

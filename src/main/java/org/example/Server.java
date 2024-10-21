@@ -11,9 +11,7 @@ public class Server {
     private static final Logger logger = LoggerFactory.getLogger(Server.class);
 
     public static void main(String[] args) {
-        logger.info("POSTGRES_DB: {}", System.getenv("POSTGRES_DB"));
-        logger.info("POSTGRES_USER: {}", System.getenv("POSTGRES_USER"));
-        logger.info("POSTGRES_PASSWORD: {}", System.getenv("POSTGRES_PASSWORD"));
+        logger.info("Starting server...");
         SpringApplication.run(Server.class, args);
     }
 }
