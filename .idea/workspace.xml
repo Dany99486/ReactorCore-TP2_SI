@@ -115,7 +115,7 @@
     <configuration name="Server" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="17" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <module name="demo (2)" />
+      <module name="server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.Server" />
       <extension name="coverage">
         <pattern>
