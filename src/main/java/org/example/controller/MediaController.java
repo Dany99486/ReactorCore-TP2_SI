@@ -73,15 +73,18 @@ public class MediaController {
     public Mono<ResponseEntity<String>> deleteMedia(@PathVariable Long id) {
         return mediaService.getMediaById(id)
                 .flatMap(existingMedia -> mediaService.deleteMedia(id)
-                        .then(Mono.just(ResponseEntity.ok("")))
+                        .then(Mono.defer(() -> {
+                            logger.info("Successfully deleted media with id: {}", id);
+                            return Mono.just(ResponseEntity.ok("Media deleted successfully"));
+                        }))
                         .onErrorResume(error -> {
                             logger.error("Failed to delete media with id: {}", id, error);
-                            return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error.getMessage()));
+                            return Mono.just(ResponseEntity.status(HttpStatus.CONFLICT).body(error.getMessage()));
                         }))
                 .switchIfEmpty(Mono.defer(() -> {
                     logger.warn("Media with id: {} not found", id);
-                    return Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                    return Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).body("Media not found"));
                 }))
-                .doOnError(error -> logger.error("Failed to delete media with id: {}", id, error));
+                .doOnError(error -> logger.error("Failed to delete media with id: {}", id));
     }
 }

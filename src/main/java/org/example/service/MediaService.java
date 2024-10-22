@@ -4,7 +4,10 @@ import org.example.model.Media;
 import org.example.repository.MediaRepository;
 import org.example.repository.UserMediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -16,47 +19,40 @@ public class MediaService {
     @Autowired
     private UserMediaRepository userMediaRepository;
 
-    // Método para obter todas as mídias
     public Flux<Media> getAllMedia() {
-        return mediaRepository.findAll(); // Já retorna um Flux<Media>
+        return mediaRepository.findAll();
     }
 
-    // Método para criar uma nova mídia
     public Mono<Media> createMedia(Media media) {
-        return mediaRepository.save(media); // Já retorna um Mono<Media>
+        return mediaRepository.save(media);
     }
 
-    // Método para encontrar mídia por ID
     public Mono<Media> getMediaById(Long id) {
-        return mediaRepository.findById(id); // Já retorna um Mono<Media>
+        return mediaRepository.findById(id);
     }
 
     // Método para atualizar uma mídia
     public Mono<Media> updateMedia(Long id, Media media) {
         return mediaRepository.findById(id)
                 .flatMap(existingMedia -> {
-                    if (existingMedia == null) {
-                        return Mono.error(new RuntimeException("Media not found"));
-                    }
                     existingMedia.setTitle(media.getTitle());
                     existingMedia.setReleaseDate(media.getReleaseDate());
                     existingMedia.setAverageRating(media.getAverageRating());
                     existingMedia.setType(media.getType());
-                    return mediaRepository.save(existingMedia); // Salva a mídia atualizada
+                    return mediaRepository.save(existingMedia);
                 })
-                .switchIfEmpty(Mono.error(new RuntimeException("Media not found"))); // Lida com o caso em que a mídia não é encontrada
+                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Media not found")));
     }
 
-    // Método para excluir uma mídia
     public Mono<Void> deleteMedia(Long id) {
-        // Primeiro, verifique se existem relações associadas a esta mídia
         return userMediaRepository.existsByMediaId(id)
-                .flatMap(exists -> {
-                    if (exists) {
-                        return Mono.error(new RuntimeException("Cannot delete media. It is associated with a user."));
-                    }else
-                        return mediaRepository.deleteById(id);
-                });
+            .flatMap(exists -> {
+                if (exists) {
+                    return Mono.error(new ResponseStatusException(HttpStatus.CONFLICT, "Media cannot be deleted because it is linked to user"));
+                } else {
+                    return mediaRepository.deleteById(id);
+                }
+            });
     }
 
 }

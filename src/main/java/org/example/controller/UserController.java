@@ -46,14 +46,14 @@ public class UserController {
     @GetMapping("/{id}")
     public Mono<ResponseEntity<User>> getUserById(@PathVariable Long id) {
         return userService.getUserById(id)
-                .map(user -> {
-                    logger.info("Successfully fetched user with id: {}", id);
-                    return ResponseEntity.ok(user);
-                })
-                .switchIfEmpty(Mono.defer(() -> {
-                    logger.warn("User with id: {} not found", id);
-                    return Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-                }))
+                    .map(user -> {
+                        logger.info("Successfully fetched user with id: {}", id);
+                        return ResponseEntity.ok(user);
+                    })
+                    .switchIfEmpty(Mono.defer(() -> {
+                        logger.warn("User with id: {} not found", id);
+                        return Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                    }))
                 .doOnError(error -> logger.error("Failed to fetch user with id: {}", id, error));
     }
 
@@ -61,14 +61,14 @@ public class UserController {
     @PutMapping("/{id}")
     public Mono<ResponseEntity<User>> updateUser(@PathVariable Long id, @Valid @RequestBody User user) {
         return userService.getUserById(id)
-                .flatMap(existingUser -> userService.updateUser(id, user)
-                        .map(updatedUser -> {
-                            logger.info("Successfully updated user with id: {}", id);
-                            return ResponseEntity.ok(updatedUser);
-                        }))
-                .switchIfEmpty(Mono.defer(() -> {
-                    logger.warn("User with id: {} not found", id);
-                    return Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                    .flatMap(existingUser -> userService.updateUser(id, user)
+                            .map(updatedUser -> {
+                                logger.info("Successfully updated user with id: {}", id);
+                                return ResponseEntity.ok(updatedUser);
+                            }))
+                    .switchIfEmpty(Mono.defer(() -> {
+                        logger.warn("User with id: {} not found", id);
+                        return Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
                 }))
                 .doOnError(error -> logger.error("Failed to update user with id: {}", id, error));
     }
@@ -77,9 +77,16 @@ public class UserController {
     @DeleteMapping("/{id}")
     public Mono<ResponseEntity<String>> deleteUser(@PathVariable Long id) {
         return userService.getUserById(id)
-                .flatMap(existingUser -> userService.deleteUser(id)
-                        .then(Mono.just(ResponseEntity.ok("User deleted successfully"))))
-                .switchIfEmpty(Mono.defer(() -> {
+                    .flatMap(existingUser -> userService.deleteUser(id)
+                            .then(Mono.defer(() -> {
+                                logger.info("Successfully deleted user with id: {}", id);
+                                return Mono.just(ResponseEntity.ok("User deleted successfully"));
+                            }))
+                            .onErrorResume(error -> {
+                                logger.error("Failed to delete user with id: {}", id, error);
+                                return Mono.just(ResponseEntity.status(HttpStatus.CONFLICT).body(error.getMessage()));
+                            }))
+                    .switchIfEmpty(Mono.defer(() -> {
                     logger.warn("User with id: {} not found", id);
                     return Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
                 }))

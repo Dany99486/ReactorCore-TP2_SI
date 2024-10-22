@@ -42,16 +42,18 @@ public class UserService {
                     existingUser.setGender(user.getGender());
                     return userRepository.save(existingUser);
                 })
-                .switchIfEmpty(Mono.error(new RuntimeException("User not found")));
+                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")));
     }
 
     // Método para excluir um usuário
     public Mono<Void> deleteUser(Long id) {
         return userMediaRepository.existsByUserId(id)  // Verifica se o usuário está em uma relação
-                .flatMap(exists -> {
-                    if (exists)
-                        return Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, "User cannot be deleted because it is linked to media"));
-                    else
-                        return userRepository.deleteById(id); // Chama o método delete apenas se o usuário não estiver vinculado a nenhuma mídia
-                });    }
+            .flatMap(exists -> {
+                if (exists){
+                    return Mono.error(new ResponseStatusException(HttpStatus.CONFLICT, "User cannot be deleted because it is linked to media"));
+                }else{
+                    return userRepository.deleteById(id); // Chama o método delete apenas se o usuário não estiver vinculado a nenhuma mídia
+                }
+                });    
+            }
 }
