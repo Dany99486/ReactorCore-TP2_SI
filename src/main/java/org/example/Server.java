@@ -12,6 +12,11 @@ public class Server {
 
     public static void main(String[] args) {
         logger.info("Starting server...");
+        // log database environment variables
+        logger.info("POSTGRES_DB: " + System.getenv("POSTGRES_DB"));
+        logger.info("POSTGRES_USER: " + System.getenv("POSTGRES_USER"));
+        logger.info("POSTGRES_PASSWORD: " + System.getenv("POSTGRES_PASSWORD"));
+
         SpringApplication.run(Server.class, args);
     }
 }

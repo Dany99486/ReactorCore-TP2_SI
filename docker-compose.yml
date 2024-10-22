@@ -4,7 +4,7 @@ services:
   db:
     image: postgres:latest
     ports:
-      - "5432:5432"
+      - 5432:5432
     env_file: .env
     networks:
       - server-network
@@ -19,6 +19,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    depends_on:
+      - db
     command: mvn spring-boot:run
     env_file: .env
     networks:
@@ -27,7 +29,7 @@ services:
       - ..:/workspace
     user: root
     ports:
-      - "8080:8080"
+      - 8080:8080
     logging:
       driver: "json-file"
       options:
