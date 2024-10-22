@@ -13,9 +13,9 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
-        
+
   server:
-    working_dir: /workspace/ReactorCore-TP2_SI
+    working_dir: /app/server
     build:
       context: .
       dockerfile: Dockerfile
@@ -26,7 +26,7 @@ services:
     networks:
       - server-network
     volumes:
-      - ..:/workspace
+      - ./server:/app/server
     user: root
     ports:
       - 8080:8080
@@ -35,6 +35,19 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
+  client:
+    working_dir: /app/client
+    build:
+      context: . # Contexto para o build do cliente
+      dockerfile: Dockerfile  # Usar o mesmo Dockerfile
+    command: mvn spring-boot:run  # Comando para iniciar o cliente
+    volumes:
+      - ./client:/app/client  # Mapear o diretório do cliente
+    ports:
+      - 8081:8081  # Use a porta desejada para o cliente
+    networks:
+      - server-network
 
 networks:
   server-network:
