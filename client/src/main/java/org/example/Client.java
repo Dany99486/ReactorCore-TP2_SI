@@ -8,7 +8,7 @@ public class Client {
     public static void main(String[] args) {
         System.out.println("<==== Client ====>");
 
-        String BaseUrl = "http://server:8080";
+        String BaseUrl = "http://localhost:8080";
         String MyURI = "/media";
 
         WebClient.create(BaseUrl)
@@ -19,7 +19,7 @@ public class Client {
                 .subscribe(System.out::println);
 
         try {
-            Thread.sleep(3*1000);
+            Thread.sleep(10*1000);
         } catch (InterruptedException e) {
             System.err.println("Error: " + e.getMessage());
         }

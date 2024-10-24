@@ -41,13 +41,14 @@ services:
     build:
       context: . # Contexto para o build do cliente
       dockerfile: Dockerfile  # Usar o mesmo Dockerfile
+    depends_on:
+      - server  # Depende do servidor
     command: mvn spring-boot:run  # Comando para iniciar o cliente
     volumes:
       - ./client:/app/client  # Mapear o diretório do cliente
     ports:
       - 8081:8081  # Use a porta desejada para o cliente
-    networks:
-      - server-network
+    network_mode: "host"
 
 networks:
   server-network:
