@@ -1,43 +1,36 @@
-2024-10-24T15:25:49.463Z  INFO 71 --- [main] org.example.Server                       : Starting Server using Java 21.0.4 with PID 71 (/app/server/target/classes started by root in /app/server)
-2024-10-24T15:25:49.485Z  INFO 71 --- [main] org.example.Server                       : No active profile set, falling back to 1 default profile: "default"
-2024-10-24T15:25:51.812Z  INFO 71 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
-2024-10-24T15:25:52.580Z  INFO 71 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 747 ms. Found 3 R2DBC repository interfaces.
-2024-10-24T15:25:58.072Z  WARN 71 --- [reactor-tcp-epoll-1] i.r.p.client.ReactorNettyClient          : Notice: SEVERITY_LOCALIZED=NOTICE, SEVERITY_NON_LOCALIZED=NOTICE, CODE=42P07, MESSAGE=relation "users" already exists, skipping, FILE=parse_utilcmd.c, LINE=207, ROUTINE=transformCreateStmt
-2024-10-24T15:25:58.086Z  WARN 71 --- [reactor-tcp-epoll-1] i.r.p.client.ReactorNettyClient          : Notice: SEVERITY_LOCALIZED=NOTICE, SEVERITY_NON_LOCALIZED=NOTICE, CODE=42P07, MESSAGE=relation "media" already exists, skipping, FILE=parse_utilcmd.c, LINE=207, ROUTINE=transformCreateStmt
-2024-10-24T15:25:58.088Z  WARN 71 --- [reactor-tcp-epoll-1] i.r.p.client.ReactorNettyClient          : Notice: SEVERITY_LOCALIZED=NOTICE, SEVERITY_NON_LOCALIZED=NOTICE, CODE=42P07, MESSAGE=relation "user_media" already exists, skipping, FILE=parse_utilcmd.c, LINE=207, ROUTINE=transformCreateStmt
-2024-10-24T15:25:59.288Z  INFO 71 --- [main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8080 (http)
-2024-10-24T15:25:59.317Z  INFO 71 --- [main] org.example.Server                       : Started Server in 11.801 seconds (process running for 12.947)
-2024-10-24T15:26:33.430Z  INFO 71 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all users
-2024-10-24T15:26:40.669Z  INFO 71 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
-2024-10-24T15:31:59.386Z  INFO 71 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
-2024-10-24T15:34:38.219Z  INFO 71 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
-2024-10-24T16:07:57.312Z  INFO 68 --- [main] org.example.Server                       : Starting Server using Java 21.0.4 with PID 68 (/app/server/target/classes started by root in /app/server)
-2024-10-24T16:07:57.314Z  INFO 68 --- [main] org.example.Server                       : No active profile set, falling back to 1 default profile: "default"
-2024-10-24T16:07:59.428Z  INFO 68 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
-2024-10-24T16:08:00.104Z  INFO 68 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 659 ms. Found 3 R2DBC repository interfaces.
-2024-10-24T16:08:04.169Z  WARN 68 --- [reactor-tcp-epoll-1] i.r.p.client.ReactorNettyClient          : Notice: SEVERITY_LOCALIZED=NOTICE, SEVERITY_NON_LOCALIZED=NOTICE, CODE=42P07, MESSAGE=relation "users" already exists, skipping, FILE=parse_utilcmd.c, LINE=207, ROUTINE=transformCreateStmt
-2024-10-24T16:08:04.181Z  WARN 68 --- [reactor-tcp-epoll-1] i.r.p.client.ReactorNettyClient          : Notice: SEVERITY_LOCALIZED=NOTICE, SEVERITY_NON_LOCALIZED=NOTICE, CODE=42P07, MESSAGE=relation "media" already exists, skipping, FILE=parse_utilcmd.c, LINE=207, ROUTINE=transformCreateStmt
-2024-10-24T16:08:04.184Z  WARN 68 --- [reactor-tcp-epoll-1] i.r.p.client.ReactorNettyClient          : Notice: SEVERITY_LOCALIZED=NOTICE, SEVERITY_NON_LOCALIZED=NOTICE, CODE=42P07, MESSAGE=relation "user_media" already exists, skipping, FILE=parse_utilcmd.c, LINE=207, ROUTINE=transformCreateStmt
-2024-10-24T16:08:05.256Z  INFO 68 --- [main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8080 (http)
-2024-10-24T16:08:05.273Z  INFO 68 --- [main] org.example.Server                       : Started Server in 9.537 seconds (process running for 10.389)
-2024-10-24T16:24:22.383Z  INFO 68 --- [reactor-http-epoll-2] org.example.controller.MediaController   : Successfully fetched all media
-2024-10-24T16:24:45.656Z  INFO 68 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
-2024-10-24T17:10:16.106Z  WARN 68 --- [reactor-tcp-epoll-9] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
-2024-10-24T17:10:16.105Z  WARN 68 --- [reactor-tcp-epoll-7] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
-2024-10-24T17:10:16.106Z  WARN 68 --- [reactor-tcp-epoll-10] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
-2024-10-24T17:10:16.107Z  WARN 68 --- [reactor-tcp-epoll-4] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
-2024-10-24T17:10:16.110Z  WARN 68 --- [reactor-tcp-epoll-8] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
-2024-10-24T17:10:16.108Z  WARN 68 --- [reactor-tcp-epoll-3] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
-2024-10-24T17:10:16.109Z  WARN 68 --- [reactor-tcp-epoll-5] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
-2024-10-24T17:10:16.109Z  WARN 68 --- [reactor-tcp-epoll-2] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
-2024-10-24T17:10:16.109Z  WARN 68 --- [reactor-tcp-epoll-6] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
-2024-10-24T17:10:16.110Z  WARN 68 --- [reactor-tcp-epoll-1] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
-2024-10-24T17:14:51.182Z  INFO 100 --- [main] org.example.Server                       : Starting Server using Java 21.0.5 with PID 100 (/app/server/target/classes started by root in /app/server)
-2024-10-24T17:14:51.236Z  INFO 100 --- [main] org.example.Server                       : No active profile set, falling back to 1 default profile: "default"
-2024-10-24T17:14:53.988Z  INFO 100 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
-2024-10-24T17:14:54.904Z  INFO 100 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 892 ms. Found 3 R2DBC repository interfaces.
-2024-10-24T17:15:01.957Z  INFO 100 --- [main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8080 (http)
-2024-10-24T17:15:01.972Z  INFO 100 --- [main] org.example.Server                       : Started Server in 13.012 seconds (process running for 14.052)
-2024-10-24T17:15:47.826Z  INFO 100 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
-2024-10-24T17:15:58.605Z  INFO 100 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully created media with id: 1
-2024-10-24T17:16:02.547Z  INFO 100 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T09:47:45.072Z  INFO 73 --- [main] org.example.Server                       : Starting Server using Java 21.0.5 with PID 73 (/app/server/target/classes started by root in /app/server)
+2024-10-26T09:47:45.088Z  INFO 73 --- [main] org.example.Server                       : No active profile set, falling back to 1 default profile: "default"
+2024-10-26T09:47:46.589Z  INFO 73 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
+2024-10-26T09:47:47.067Z  INFO 73 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 465 ms. Found 3 R2DBC repository interfaces.
+2024-10-26T09:47:50.950Z  WARN 73 --- [reactor-tcp-epoll-1] i.r.p.client.ReactorNettyClient          : Notice: SEVERITY_LOCALIZED=NOTICE, SEVERITY_NON_LOCALIZED=NOTICE, CODE=42P07, MESSAGE=relation "users" already exists, skipping, FILE=parse_utilcmd.c, LINE=207, ROUTINE=transformCreateStmt
+2024-10-26T09:47:50.975Z  WARN 73 --- [reactor-tcp-epoll-1] i.r.p.client.ReactorNettyClient          : Notice: SEVERITY_LOCALIZED=NOTICE, SEVERITY_NON_LOCALIZED=NOTICE, CODE=42P07, MESSAGE=relation "media" already exists, skipping, FILE=parse_utilcmd.c, LINE=207, ROUTINE=transformCreateStmt
+2024-10-26T09:47:50.977Z  WARN 73 --- [reactor-tcp-epoll-1] i.r.p.client.ReactorNettyClient          : Notice: SEVERITY_LOCALIZED=NOTICE, SEVERITY_NON_LOCALIZED=NOTICE, CODE=42P07, MESSAGE=relation "user_media" already exists, skipping, FILE=parse_utilcmd.c, LINE=207, ROUTINE=transformCreateStmt
+2024-10-26T09:47:51.170Z  INFO 73 --- [main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8080 (http)
+2024-10-26T09:47:51.187Z  INFO 73 --- [main] org.example.Server                       : Started Server in 7.361 seconds (process running for 7.975)
+2024-10-26T10:25:59.708Z  INFO 73 --- [reactor-tcp-epoll-11] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T10:25:59.708Z  INFO 73 --- [reactor-tcp-epoll-1] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T10:25:59.708Z  INFO 73 --- [reactor-tcp-epoll-12] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T10:32:24.936Z  INFO 73 --- [reactor-tcp-epoll-8] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T10:32:25.200Z  INFO 73 --- [reactor-tcp-epoll-8] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T10:32:25.208Z  INFO 73 --- [reactor-tcp-epoll-8] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T10:33:00.066Z  INFO 73 --- [reactor-tcp-epoll-8] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T10:33:19.036Z  INFO 73 --- [reactor-tcp-epoll-8] org.example.controller.MediaController   : Successfully fetched all users
+2024-10-26T10:33:23.588Z  INFO 73 --- [reactor-tcp-epoll-8] org.example.controller.MediaController   : Successfully created user with id: 1
+2024-10-26T10:33:32.301Z  INFO 73 --- [reactor-tcp-epoll-8] org.example.controller.MediaController   : Successfully fetched media IDs by user ID
+2024-10-26T10:33:39.983Z  INFO 73 --- [reactor-tcp-epoll-8] org.example.controller.MediaController   : Successfully created user-media relation: UserMedia(id=1, userId=1, mediaId=1)
+2024-10-26T10:33:43.765Z  INFO 73 --- [reactor-tcp-epoll-8] org.example.controller.MediaController   : Successfully fetched media IDs by user ID
+2024-10-26T15:14:11.666Z  INFO 73 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T15:14:11.981Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T15:14:11.991Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T15:14:12.004Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T15:14:12.012Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T15:14:48.228Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully created media with id: 2
+2024-10-26T15:14:52.176Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully created media with id: 3
+2024-10-26T15:14:57.944Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully created media with id: 4
+2024-10-26T15:15:03.710Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully created media with id: 5
+2024-10-26T15:15:15.217Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T15:15:15.508Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T15:15:15.519Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T15:15:15.531Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T15:15:15.540Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-26T15:16:28.186Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully fetched all media

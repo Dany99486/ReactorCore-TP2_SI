@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdbe4c62-49ab-4bec-9486-20698a8d7040" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/org/example/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/org/example/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/logs/myapp.log" beforeDir="false" afterPath="$PROJECT_DIR$/server/logs/myapp.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/org/example/config/DbSchemaInitOnStartup.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +162,8 @@
       <workItem from="1729354412906" duration="21311000" />
       <workItem from="1729631143124" duration="5637000" />
       <workItem from="1729637160693" duration="2078000" />
-      <workItem from="1729783087975" duration="6675000" />
+      <workItem from="1729783087975" duration="11237000" />
+      <workItem from="1729935912372" duration="10861000" />
     </task>
     <servers />
   </component>

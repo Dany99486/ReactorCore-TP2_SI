@@ -1,0 +1,29 @@
+### 1. Títulos e datas de lançamento de todos os itens de mídia ###
+Title: The Matrix, Release Date: 1999-03-31
+Title: The Matrix, Release Date: 1999-03-31
+Title: The Matrix, Release Date: 1999-03-31
+Title: The Matrix, Release Date: 1999-03-31
+Title: The Matrix, Release Date: 1999-03-31
+
+---
+
+### 2. Contagem total de itens de mídia ###
+Total media items: 5
+
+---
+
+### 3. Contagem de itens de mídia com classificação média > 8 ###
+Media items with rating > 8: 2
+
+---
+
+### 5. Itens dos anos 80, ordenados pela média de classificação ###
+
+---
+
+### 6. Média e desvio padrão das classificações ###
+Média das classificações: 7.840000000000001
+Desvio padrão das classificações: 1.4136477637657832
+
+---
+
