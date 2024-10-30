@@ -8,11 +8,15 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Min;
 
+import java.util.Set;
+
 @Data
 @Table("users")
 public class User {
     @Id
     private Long id;
+
+    private Set<Long> mediaIds;
 
     @NotBlank(message = "Name is mandatory")
     private String name;
