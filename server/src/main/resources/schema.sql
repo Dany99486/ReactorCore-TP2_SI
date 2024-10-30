@@ -12,8 +12,10 @@ CREATE TABLE IF NOT EXISTS media (
     title VARCHAR(255) NOT NULL,
     release_date DATE NOT NULL,
     average_rating DECIMAL(4, 2) CHECK (average_rating >= 0 AND average_rating <= 10.0),
-    type VARCHAR(20) NOT NULL
-);
+    type VARCHAR(20) NOT NULL,
+    user_ids BIGINT[]  -- Array de IDs de usuários associados a esta mídia
+
+    );
 
 -- Tabela de junção para relacionar usuários e mídias
 CREATE TABLE IF NOT EXISTS user_media (

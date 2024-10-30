@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -12,6 +13,8 @@ import java.time.LocalDate;
 public class Media {
 
     private Long id; // Identificador da relação
+
+    private Set<Long> userIds;
 
     private String title;
     private LocalDate releaseDate; // Data de lançamento

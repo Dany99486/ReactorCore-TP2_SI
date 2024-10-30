@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.model.Media;
+import org.example.model.User;
 import org.example.util.Stats;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -55,15 +56,17 @@ public class Client {
                 .block();
         report.append("\n---\n\n");
 
-       /* // Função 4: Contagem total de itens de mídia subscritos
+        // Função 4: Contagem total de itens de mídia subscritos
         report.append("### 4. Contagem total de itens de mídia subscritos ###\n");
         client.get()
-                .uri("/user-media/user/{userId}") // Ajuste o userId conforme necessário
+                .uri("/media") // Ajuste o userId conforme necessário
                 .retrieve()
                 .bodyToFlux(Media.class)
+                .filter(media -> media.getUserIds() != null && !media.getUserIds().isEmpty())
                 .count()
-                .subscribe(count -> report.append("Total subscribed media items: ").append(count).append("\n"));
-        report.append("\n---\n\n");*/
+                .doOnNext(count -> report.append("Total subscribed media items: ").append(count).append("\n"))
+                .block();
+        report.append("\n---\n\n");
 
         // Função 5: Itens dos anos 80, ordenados pela média de classificação
         report.append("### 5. Itens dos anos 80, ordenados pela média de classificação ###\n");
@@ -100,8 +103,48 @@ public class Client {
                 .block(); // Aguarda a conclusão do fluxo // Aguarda a conclusão do fluxo
         report.append("\n---\n\n");
 
+        // Função 7: Nome do item de mídia mais antigo
+        report.append("### 7. Nome do item de mídia mais antigo ###\n");
+        client.get()
+                .uri("/media") // Acesse todos os itens de mídia
+                .retrieve()
+                .bodyToFlux(Media.class)
+                .sort(Comparator.comparing(Media::getReleaseDate)) // Ordena pela data de lançamento
+                .next() // Pega apenas o próximo item após a ordenação (o mais antigo)
+                .doOnNext(media -> report.append("Oldest media item: ").append(media.getTitle()).append("\n"))
+                .block(); // Aguarda a conclusão do fluxo
+        report.append("\n---\n\n");
         // Gravação no ficheiro
         saveToFile(FileName, report.toString());
+
+        // Função 8: Média de usuários por item de mídia
+        report.append("### 8. Média de usuários por item de mídia ###\n");
+
+        client.get()
+                .uri("/media") // Endpoint para obter todos os itens de mídia
+                .retrieve()
+                .bodyToFlux(Media.class)
+                .flatMap(media ->
+                        client.get()
+                                .uri("/user-media/media/{mediaId}", media.getId()) // Obtém usuários por ID do item de mídia
+                                .retrieve()
+                                .bodyToFlux(User.class) // Fluxo de usuários
+                                .count() // Conta o número de usuários para este item de mídia
+                                .map(userCount -> new long[]{1, userCount}) // Retorna um array com [1, userCount]
+                )
+                .reduce(new long[]{0, 0}, (acc, counts) -> {
+                    // Soma o total de itens de mídia e o total de usuários
+                    return new long[]{acc[0] + counts[0], acc[1] + counts[1]};
+                })
+                .doOnNext(result -> {
+                    // Calcula a média
+                    double average = result[0] == 0 ? 0 : (double) result[1] / result[0];
+                    report.append("Average number of users per media item: ").append(average).append("\n");
+                })
+                .block(); // Aguarda a conclusão do fluxo
+
+        report.append("\n---\n\n");
+
     }
 
     private static void saveToFile(String filename, String content) {

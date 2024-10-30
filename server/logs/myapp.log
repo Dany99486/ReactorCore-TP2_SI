@@ -34,3 +34,869 @@
 2024-10-26T15:15:15.531Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
 2024-10-26T15:15:15.540Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
 2024-10-26T15:16:28.186Z  INFO 73 --- [reactor-tcp-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T17:55:34.575Z  INFO 104 --- [main] org.example.Server                       : Starting Server using Java 21.0.5 with PID 104 (/app/server/target/classes started by root in /app/server)
+2024-10-30T17:55:34.577Z  INFO 104 --- [main] org.example.Server                       : No active profile set, falling back to 1 default profile: "default"
+2024-10-30T17:55:36.006Z  INFO 104 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
+2024-10-30T17:55:36.482Z  INFO 104 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 464 ms. Found 3 R2DBC repository interfaces.
+2024-10-30T17:55:40.749Z  INFO 104 --- [main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8080 (http)
+2024-10-30T17:55:40.778Z  INFO 104 --- [main] org.example.Server                       : Started Server in 7.346 seconds (process running for 7.972)
+2024-10-30T17:57:29.654Z  INFO 104 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T17:57:34.697Z  INFO 104 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully created media with id: 1
+2024-10-30T17:57:38.706Z  INFO 104 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T17:57:46.475Z  INFO 104 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully created user with id: 1
+2024-10-30T17:58:31.853Z  WARN 104 --- [reactor-tcp-epoll-10] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=ERROR, SEVERITY_NON_LOCALIZED=ERROR, CODE=42703, MESSAGE=column "user_ids" of relation "media" does not exist, POSITION=18, FILE=analyze.c, LINE=2528, ROUTINE=transformUpdateTargetList
+2024-10-30T17:58:31.916Z ERROR 104 --- [reactor-tcp-epoll-10] a.w.r.e.AbstractErrorWebExceptionHandler : [4c22f7d6-6]  500 Server Error for HTTP POST "/media/1/users/1"
+
+org.springframework.r2dbc.BadSqlGrammarException: execute; bad SQL grammar [UPDATE media SET user_ids = $1, title = $2, release_date = $3, average_rating = $4, type = $5 WHERE media.id = $6]
+	at org.springframework.r2dbc.connection.ConnectionFactoryUtils.convertR2dbcException(ConnectionFactoryUtils.java:253) ~[spring-r2dbc-6.1.13.jar:6.1.13]
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ Handler org.example.controller.MediaController#addUserToMedia(Long, Long) [DispatcherHandler]
+	*__checkpoint ⇢ HTTP POST "/media/1/users/1" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+		at org.springframework.r2dbc.connection.ConnectionFactoryUtils.convertR2dbcException(ConnectionFactoryUtils.java:253) ~[spring-r2dbc-6.1.13.jar:6.1.13]
+		at org.springframework.r2dbc.core.DefaultDatabaseClient.lambda$inConnection$4(DefaultDatabaseClient.java:134) ~[spring-r2dbc-6.1.13.jar:6.1.13]
+		at reactor.core.publisher.Mono.lambda$onErrorMap$28(Mono.java:3848) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.lambda$onErrorResume$30(Mono.java:3938) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onError(FluxOnErrorResume.java:94) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoUsingWhen$MonoUsingWhenSubscriber.deferredError(MonoUsingWhen.java:277) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxUsingWhen$RollbackInner.onComplete(FluxUsingWhen.java:480) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Operators$MultiSubscriptionSubscriber.onComplete(Operators.java:2231) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onComplete(FluxPeek.java:260) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Operators$MultiSubscriptionSubscriber.onComplete(Operators.java:2231) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.onComplete(MonoIgnoreThen.java:210) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.onComplete(MonoIgnoreThen.java:210) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.pool.SimpleDequePool.maybeRecycleAndDrain(SimpleDequePool.java:540) ~[reactor-pool-1.0.8.jar:1.0.8]
+		at reactor.pool.SimpleDequePool$QueuePoolRecyclerInner.onComplete(SimpleDequePool.java:781) ~[reactor-pool-1.0.8.jar:1.0.8]
+		at reactor.core.publisher.Operators.complete(Operators.java:137) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoEmpty.subscribe(MonoEmpty.java:46) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.subscribe(Mono.java:4576) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.pool.SimpleDequePool$QueuePoolRecyclerMono.subscribe(SimpleDequePool.java:893) ~[reactor-pool-1.0.8.jar:1.0.8]
+		at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:241) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.onComplete(MonoIgnoreThen.java:204) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onComplete(FluxPeek.java:260) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Operators.complete(Operators.java:137) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoEmpty.subscribe(MonoEmpty.java:46) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.subscribe(Mono.java:4576) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:265) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen.subscribe(MonoIgnoreThen.java:51) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:241) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.onComplete(MonoIgnoreThen.java:204) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreElements$IgnoreElementsSubscriber.onComplete(MonoIgnoreElements.java:89) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.onComplete(FluxHandleFuseable.java:239) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoSupplier$MonoSupplierSubscription.request(MonoSupplier.java:148) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.request(FluxHandleFuseable.java:260) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreElements$IgnoreElementsSubscriber.onSubscribe(MonoIgnoreElements.java:72) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.onSubscribe(FluxHandleFuseable.java:164) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoSupplier.subscribe(MonoSupplier.java:48) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.subscribe(Mono.java:4576) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:265) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen.subscribe(MonoIgnoreThen.java:51) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.InternalMonoOperator.subscribe(InternalMonoOperator.java:76) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.subscribe(Mono.java:4576) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onError(FluxOnErrorResume.java:103) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreElements$IgnoreElementsSubscriber.onError(MonoIgnoreElements.java:84) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onError(FluxMap.java:134) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFilter$FilterSubscriber.onError(FluxFilter.java:157) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFilter$FilterConditionalSubscriber.onError(FluxFilter.java:291) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onError(FluxMap.java:265) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Operators.error(Operators.java:198) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoError.subscribe(MonoError.java:53) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoDeferContextual.subscribe(MonoDeferContextual.java:55) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.InternalMonoOperator.subscribe(InternalMonoOperator.java:76) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.subscribe(Mono.java:4576) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxUsingWhen$UsingWhenSubscriber.onError(FluxUsingWhen.java:368) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoStreamCollector$StreamCollectorSubscriber.onError(MonoStreamCollector.java:149) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onError(FluxMap.java:134) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFlatMap$FlatMapMain.checkTerminated(FluxFlatMap.java:846) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFlatMap$FlatMapMain.drainLoop(FluxFlatMap.java:612) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFlatMap$FlatMapMain.drain(FluxFlatMap.java:592) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFlatMap$FlatMapMain.innerError(FluxFlatMap.java:867) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFlatMap$FlatMapInner.onError(FluxFlatMap.java:994) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoSingle$SingleSubscriber.onError(MonoSingle.java:150) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxHandle$HandleSubscriber.onError(FluxHandle.java:213) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyInner.onError(MonoFlatMapMany.java:256) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.onNext(FluxHandleFuseable.java:201) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFilterFuseable$FilterFuseableConditionalSubscriber.onNext(FluxFilterFuseable.java:337) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxContextWrite$ContextWriteSubscriber.onNext(FluxContextWrite.java:107) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+		at io.r2dbc.postgresql.util.FluxDiscardOnCancel$FluxDiscardOnCancelSubscriber.onNext(FluxDiscardOnCancel.java:86) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+		at reactor.core.publisher.FluxCreate$BufferAsyncSink.drain(FluxCreate.java:880) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxCreate$BufferAsyncSink.next(FluxCreate.java:805) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxCreate$SerializedFluxSink.next(FluxCreate.java:163) ~[reactor-core-3.6.10.jar:3.6.10]
+		at io.r2dbc.postgresql.client.ReactorNettyClient$Conversation.emit(ReactorNettyClient.java:735) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+		at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.emit(ReactorNettyClient.java:986) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+		at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:860) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+		at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:767) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+		at reactor.core.publisher.FluxHandle$HandleSubscriber.onNext(FluxHandle.java:129) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.netty.channel.FluxReceive.drainReceiver(FluxReceive.java:294) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+		at reactor.netty.channel.FluxReceive.onInboundNext(FluxReceive.java:403) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+		at reactor.netty.channel.ChannelOperations.onInboundNext(ChannelOperations.java:425) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+		at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:115) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:346) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:333) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:455) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:290) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.epoll.AbstractEpollStreamChannel$EpollStreamUnsafe.epollInReady(AbstractEpollStreamChannel.java:799) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:501) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:399) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+		at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Caused by: io.r2dbc.postgresql.ExceptionFactory$PostgresqlBadGrammarException: column "user_ids" of relation "media" does not exist
+	at io.r2dbc.postgresql.ExceptionFactory.createException(ExceptionFactory.java:86) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.ExceptionFactory.handleErrorResponse(ExceptionFactory.java:111) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.onNext(FluxHandleFuseable.java:179) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxFilterFuseable$FilterFuseableConditionalSubscriber.onNext(FluxFilterFuseable.java:337) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxContextWrite$ContextWriteSubscriber.onNext(FluxContextWrite.java:107) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+	at io.r2dbc.postgresql.util.FluxDiscardOnCancel$FluxDiscardOnCancelSubscriber.onNext(FluxDiscardOnCancel.java:86) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at reactor.core.publisher.FluxCreate$BufferAsyncSink.drain(FluxCreate.java:880) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxCreate$BufferAsyncSink.next(FluxCreate.java:805) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxCreate$SerializedFluxSink.next(FluxCreate.java:163) ~[reactor-core-3.6.10.jar:3.6.10]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$Conversation.emit(ReactorNettyClient.java:735) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.emit(ReactorNettyClient.java:986) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:860) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:767) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at reactor.core.publisher.FluxHandle$HandleSubscriber.onNext(FluxHandle.java:129) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.netty.channel.FluxReceive.drainReceiver(FluxReceive.java:294) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.FluxReceive.onInboundNext(FluxReceive.java:403) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.ChannelOperations.onInboundNext(ChannelOperations.java:425) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:115) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:346) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:333) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:455) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:290) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.AbstractEpollStreamChannel$EpollStreamUnsafe.epollInReady(AbstractEpollStreamChannel.java:799) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:501) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:399) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2024-10-30T17:59:03.097Z  INFO 104 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all users
+2024-10-30T17:59:13.567Z  WARN 104 --- [reactor-tcp-epoll-10] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=ERROR, SEVERITY_NON_LOCALIZED=ERROR, CODE=23505, MESSAGE=duplicate key value violates unique constraint "user_media_user_id_media_id_key", DETAIL=Key (user_id, media_id)=(1, 1) already exists., SCHEMA_NAME=public, TABLE_NAME=user_media, CONSTRAINT_NAME=user_media_user_id_media_id_key, FILE=nbtinsert.c, LINE=666, ROUTINE=_bt_check_unique
+2024-10-30T17:59:13.570Z ERROR 104 --- [reactor-tcp-epoll-10] a.w.r.e.AbstractErrorWebExceptionHandler : [4c22f7d6-8]  500 Server Error for HTTP POST "/media/1/users/1"
+
+org.springframework.dao.DuplicateKeyException: executeMany; SQL [INSERT INTO user_media (user_id, media_id) VALUES ($1, $2)]; duplicate key value violates unique constraint "user_media_user_id_media_id_key"
+	at org.springframework.r2dbc.connection.ConnectionFactoryUtils.convertR2dbcException(ConnectionFactoryUtils.java:245) ~[spring-r2dbc-6.1.13.jar:6.1.13]
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ Handler org.example.controller.MediaController#addUserToMedia(Long, Long) [DispatcherHandler]
+	*__checkpoint ⇢ HTTP POST "/media/1/users/1" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+		at org.springframework.r2dbc.connection.ConnectionFactoryUtils.convertR2dbcException(ConnectionFactoryUtils.java:245) ~[spring-r2dbc-6.1.13.jar:6.1.13]
+		at org.springframework.r2dbc.core.DefaultDatabaseClient.lambda$inConnectionMany$8(DefaultDatabaseClient.java:156) ~[spring-r2dbc-6.1.13.jar:6.1.13]
+		at reactor.core.publisher.Flux.lambda$onErrorMap$29(Flux.java:7310) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Flux.lambda$onErrorResume$30(Flux.java:7363) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onError(FluxOnErrorResume.java:94) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxUsingWhen$UsingWhenSubscriber.deferredError(FluxUsingWhen.java:403) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxUsingWhen$RollbackInner.onComplete(FluxUsingWhen.java:480) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Operators$MultiSubscriptionSubscriber.onComplete(Operators.java:2231) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onComplete(FluxPeek.java:260) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Operators$MultiSubscriptionSubscriber.onComplete(Operators.java:2231) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.onComplete(MonoIgnoreThen.java:210) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.onComplete(MonoIgnoreThen.java:210) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.pool.SimpleDequePool.maybeRecycleAndDrain(SimpleDequePool.java:540) ~[reactor-pool-1.0.8.jar:1.0.8]
+		at reactor.pool.SimpleDequePool$QueuePoolRecyclerInner.onComplete(SimpleDequePool.java:781) ~[reactor-pool-1.0.8.jar:1.0.8]
+		at reactor.core.publisher.Operators.complete(Operators.java:137) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoEmpty.subscribe(MonoEmpty.java:46) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.subscribe(Mono.java:4576) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.pool.SimpleDequePool$QueuePoolRecyclerMono.subscribe(SimpleDequePool.java:893) ~[reactor-pool-1.0.8.jar:1.0.8]
+		at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:241) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.onComplete(MonoIgnoreThen.java:204) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onComplete(FluxPeek.java:260) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Operators.complete(Operators.java:137) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoEmpty.subscribe(MonoEmpty.java:46) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.subscribe(Mono.java:4576) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:265) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen.subscribe(MonoIgnoreThen.java:51) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:241) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.onComplete(MonoIgnoreThen.java:204) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreElements$IgnoreElementsSubscriber.onComplete(MonoIgnoreElements.java:89) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.onComplete(FluxHandleFuseable.java:239) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoSupplier$MonoSupplierSubscription.request(MonoSupplier.java:148) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.request(FluxHandleFuseable.java:260) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreElements$IgnoreElementsSubscriber.onSubscribe(MonoIgnoreElements.java:72) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.onSubscribe(FluxHandleFuseable.java:164) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoSupplier.subscribe(MonoSupplier.java:48) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.subscribe(Mono.java:4576) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:265) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen.subscribe(MonoIgnoreThen.java:51) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.InternalMonoOperator.subscribe(InternalMonoOperator.java:76) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.subscribe(Mono.java:4576) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onError(FluxOnErrorResume.java:103) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreElements$IgnoreElementsSubscriber.onError(MonoIgnoreElements.java:84) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onError(FluxMap.java:134) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFilter$FilterSubscriber.onError(FluxFilter.java:157) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFilter$FilterConditionalSubscriber.onError(FluxFilter.java:291) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onError(FluxMap.java:265) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Operators.error(Operators.java:198) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoError.subscribe(MonoError.java:53) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoDeferContextual.subscribe(MonoDeferContextual.java:55) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.InternalMonoOperator.subscribe(InternalMonoOperator.java:76) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.subscribe(Mono.java:4576) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxUsingWhen$UsingWhenSubscriber.onError(FluxUsingWhen.java:368) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFlatMap$FlatMapMain.checkTerminated(FluxFlatMap.java:846) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFlatMap$FlatMapMain.drainLoop(FluxFlatMap.java:612) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFlatMap$FlatMapMain.drain(FluxFlatMap.java:592) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFlatMap$FlatMapMain.innerError(FluxFlatMap.java:867) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFlatMap$FlatMapInner.onError(FluxFlatMap.java:994) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxHandle$HandleSubscriber.onError(FluxHandle.java:213) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyInner.onError(MonoFlatMapMany.java:256) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.onNext(FluxHandleFuseable.java:201) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFilterFuseable$FilterFuseableConditionalSubscriber.onNext(FluxFilterFuseable.java:337) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxContextWrite$ContextWriteSubscriber.onNext(FluxContextWrite.java:107) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+		at io.r2dbc.postgresql.util.FluxDiscardOnCancel$FluxDiscardOnCancelSubscriber.onNext(FluxDiscardOnCancel.java:86) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+		at reactor.core.publisher.FluxCreate$BufferAsyncSink.drain(FluxCreate.java:880) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxCreate$BufferAsyncSink.next(FluxCreate.java:805) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxCreate$SerializedFluxSink.next(FluxCreate.java:163) ~[reactor-core-3.6.10.jar:3.6.10]
+		at io.r2dbc.postgresql.client.ReactorNettyClient$Conversation.emit(ReactorNettyClient.java:735) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+		at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.emit(ReactorNettyClient.java:986) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+		at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:860) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+		at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:767) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+		at reactor.core.publisher.FluxHandle$HandleSubscriber.onNext(FluxHandle.java:129) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.netty.channel.FluxReceive.drainReceiver(FluxReceive.java:294) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+		at reactor.netty.channel.FluxReceive.onInboundNext(FluxReceive.java:403) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+		at reactor.netty.channel.ChannelOperations.onInboundNext(ChannelOperations.java:425) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+		at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:115) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:346) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:318) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.epoll.AbstractEpollStreamChannel$EpollStreamUnsafe.epollInReady(AbstractEpollStreamChannel.java:799) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:501) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:399) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+		at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Caused by: io.r2dbc.postgresql.ExceptionFactory$PostgresqlDataIntegrityViolationException: duplicate key value violates unique constraint "user_media_user_id_media_id_key"
+	at io.r2dbc.postgresql.ExceptionFactory.createException(ExceptionFactory.java:92) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.ExceptionFactory.handleErrorResponse(ExceptionFactory.java:111) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.onNext(FluxHandleFuseable.java:179) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxFilterFuseable$FilterFuseableConditionalSubscriber.onNext(FluxFilterFuseable.java:337) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxContextWrite$ContextWriteSubscriber.onNext(FluxContextWrite.java:107) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+	at io.r2dbc.postgresql.util.FluxDiscardOnCancel$FluxDiscardOnCancelSubscriber.onNext(FluxDiscardOnCancel.java:86) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at reactor.core.publisher.FluxCreate$BufferAsyncSink.drain(FluxCreate.java:880) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxCreate$BufferAsyncSink.next(FluxCreate.java:805) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxCreate$SerializedFluxSink.next(FluxCreate.java:163) ~[reactor-core-3.6.10.jar:3.6.10]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$Conversation.emit(ReactorNettyClient.java:735) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.emit(ReactorNettyClient.java:986) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:860) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:767) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at reactor.core.publisher.FluxHandle$HandleSubscriber.onNext(FluxHandle.java:129) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.netty.channel.FluxReceive.drainReceiver(FluxReceive.java:294) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.FluxReceive.onInboundNext(FluxReceive.java:403) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.ChannelOperations.onInboundNext(ChannelOperations.java:425) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:115) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:346) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:318) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.AbstractEpollStreamChannel$EpollStreamUnsafe.epollInReady(AbstractEpollStreamChannel.java:799) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:501) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:399) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2024-10-30T18:01:09.761Z  WARN 104 --- [reactor-tcp-epoll-9] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=ERROR, SEVERITY_NON_LOCALIZED=ERROR, CODE=42703, MESSAGE=column "user_ids" of relation "media" does not exist, POSITION=18, FILE=analyze.c, LINE=2528, ROUTINE=transformUpdateTargetList
+2024-10-30T18:01:09.763Z ERROR 104 --- [reactor-tcp-epoll-9] a.w.r.e.AbstractErrorWebExceptionHandler : [7b8e38cf-9]  500 Server Error for HTTP DELETE "/media/1/users/1"
+
+org.springframework.r2dbc.BadSqlGrammarException: execute; bad SQL grammar [UPDATE media SET user_ids = $1, title = $2, release_date = $3, average_rating = $4, type = $5 WHERE media.id = $6]
+	at org.springframework.r2dbc.connection.ConnectionFactoryUtils.convertR2dbcException(ConnectionFactoryUtils.java:253) ~[spring-r2dbc-6.1.13.jar:6.1.13]
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ Handler org.example.controller.MediaController#removeUserFromMedia(Long, Long) [DispatcherHandler]
+	*__checkpoint ⇢ HTTP DELETE "/media/1/users/1" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+		at org.springframework.r2dbc.connection.ConnectionFactoryUtils.convertR2dbcException(ConnectionFactoryUtils.java:253) ~[spring-r2dbc-6.1.13.jar:6.1.13]
+		at org.springframework.r2dbc.core.DefaultDatabaseClient.lambda$inConnection$4(DefaultDatabaseClient.java:134) ~[spring-r2dbc-6.1.13.jar:6.1.13]
+		at reactor.core.publisher.Mono.lambda$onErrorMap$28(Mono.java:3848) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.lambda$onErrorResume$30(Mono.java:3938) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onError(FluxOnErrorResume.java:94) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoUsingWhen$MonoUsingWhenSubscriber.deferredError(MonoUsingWhen.java:277) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxUsingWhen$RollbackInner.onComplete(FluxUsingWhen.java:480) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Operators$MultiSubscriptionSubscriber.onComplete(Operators.java:2231) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onComplete(FluxPeek.java:260) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Operators$MultiSubscriptionSubscriber.onComplete(Operators.java:2231) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.onComplete(MonoIgnoreThen.java:210) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.onComplete(MonoIgnoreThen.java:210) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.pool.SimpleDequePool.maybeRecycleAndDrain(SimpleDequePool.java:540) ~[reactor-pool-1.0.8.jar:1.0.8]
+		at reactor.pool.SimpleDequePool$QueuePoolRecyclerInner.onComplete(SimpleDequePool.java:781) ~[reactor-pool-1.0.8.jar:1.0.8]
+		at reactor.core.publisher.Operators.complete(Operators.java:137) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoEmpty.subscribe(MonoEmpty.java:46) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.subscribe(Mono.java:4576) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.pool.SimpleDequePool$QueuePoolRecyclerMono.subscribe(SimpleDequePool.java:893) ~[reactor-pool-1.0.8.jar:1.0.8]
+		at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:241) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.onComplete(MonoIgnoreThen.java:204) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onComplete(FluxPeek.java:260) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Operators.complete(Operators.java:137) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoEmpty.subscribe(MonoEmpty.java:46) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.subscribe(Mono.java:4576) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:265) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen.subscribe(MonoIgnoreThen.java:51) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:241) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.onComplete(MonoIgnoreThen.java:204) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreElements$IgnoreElementsSubscriber.onComplete(MonoIgnoreElements.java:89) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.onComplete(FluxHandleFuseable.java:239) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoSupplier$MonoSupplierSubscription.request(MonoSupplier.java:148) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.request(FluxHandleFuseable.java:260) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreElements$IgnoreElementsSubscriber.onSubscribe(MonoIgnoreElements.java:72) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.onSubscribe(FluxHandleFuseable.java:164) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoSupplier.subscribe(MonoSupplier.java:48) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.subscribe(Mono.java:4576) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:265) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreThen.subscribe(MonoIgnoreThen.java:51) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.InternalMonoOperator.subscribe(InternalMonoOperator.java:76) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.subscribe(Mono.java:4576) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onError(FluxOnErrorResume.java:103) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoIgnoreElements$IgnoreElementsSubscriber.onError(MonoIgnoreElements.java:84) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onError(FluxMap.java:134) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFilter$FilterSubscriber.onError(FluxFilter.java:157) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFilter$FilterConditionalSubscriber.onError(FluxFilter.java:291) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onError(FluxMap.java:265) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Operators.error(Operators.java:198) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoError.subscribe(MonoError.java:53) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoDeferContextual.subscribe(MonoDeferContextual.java:55) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.InternalMonoOperator.subscribe(InternalMonoOperator.java:76) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.subscribe(Mono.java:4576) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxUsingWhen$UsingWhenSubscriber.onError(FluxUsingWhen.java:368) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoStreamCollector$StreamCollectorSubscriber.onError(MonoStreamCollector.java:149) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxMap$MapSubscriber.onError(FluxMap.java:134) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFlatMap$FlatMapMain.checkTerminated(FluxFlatMap.java:846) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFlatMap$FlatMapMain.drainLoop(FluxFlatMap.java:612) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFlatMap$FlatMapMain.drain(FluxFlatMap.java:592) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFlatMap$FlatMapMain.innerError(FluxFlatMap.java:867) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFlatMap$FlatMapInner.onError(FluxFlatMap.java:994) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoSingle$SingleSubscriber.onError(MonoSingle.java:150) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxHandle$HandleSubscriber.onError(FluxHandle.java:213) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyInner.onError(MonoFlatMapMany.java:256) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.onNext(FluxHandleFuseable.java:201) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxFilterFuseable$FilterFuseableConditionalSubscriber.onNext(FluxFilterFuseable.java:337) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxContextWrite$ContextWriteSubscriber.onNext(FluxContextWrite.java:107) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+		at io.r2dbc.postgresql.util.FluxDiscardOnCancel$FluxDiscardOnCancelSubscriber.onNext(FluxDiscardOnCancel.java:86) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+		at reactor.core.publisher.FluxCreate$BufferAsyncSink.drain(FluxCreate.java:880) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxCreate$BufferAsyncSink.next(FluxCreate.java:805) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxCreate$SerializedFluxSink.next(FluxCreate.java:163) ~[reactor-core-3.6.10.jar:3.6.10]
+		at io.r2dbc.postgresql.client.ReactorNettyClient$Conversation.emit(ReactorNettyClient.java:735) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+		at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.emit(ReactorNettyClient.java:986) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+		at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:860) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+		at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:767) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+		at reactor.core.publisher.FluxHandle$HandleSubscriber.onNext(FluxHandle.java:129) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.netty.channel.FluxReceive.drainReceiver(FluxReceive.java:294) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+		at reactor.netty.channel.FluxReceive.onInboundNext(FluxReceive.java:403) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+		at reactor.netty.channel.ChannelOperations.onInboundNext(ChannelOperations.java:425) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+		at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:115) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:346) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:333) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:455) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:290) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.epoll.AbstractEpollStreamChannel$EpollStreamUnsafe.epollInReady(AbstractEpollStreamChannel.java:799) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:501) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:399) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+		at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Caused by: io.r2dbc.postgresql.ExceptionFactory$PostgresqlBadGrammarException: column "user_ids" of relation "media" does not exist
+	at io.r2dbc.postgresql.ExceptionFactory.createException(ExceptionFactory.java:86) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.ExceptionFactory.handleErrorResponse(ExceptionFactory.java:111) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.onNext(FluxHandleFuseable.java:179) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxFilterFuseable$FilterFuseableConditionalSubscriber.onNext(FluxFilterFuseable.java:337) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxContextWrite$ContextWriteSubscriber.onNext(FluxContextWrite.java:107) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+	at io.r2dbc.postgresql.util.FluxDiscardOnCancel$FluxDiscardOnCancelSubscriber.onNext(FluxDiscardOnCancel.java:86) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at reactor.core.publisher.FluxCreate$BufferAsyncSink.drain(FluxCreate.java:880) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxCreate$BufferAsyncSink.next(FluxCreate.java:805) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxCreate$SerializedFluxSink.next(FluxCreate.java:163) ~[reactor-core-3.6.10.jar:3.6.10]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$Conversation.emit(ReactorNettyClient.java:735) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.emit(ReactorNettyClient.java:986) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:860) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:767) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at reactor.core.publisher.FluxHandle$HandleSubscriber.onNext(FluxHandle.java:129) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.netty.channel.FluxReceive.drainReceiver(FluxReceive.java:294) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.FluxReceive.onInboundNext(FluxReceive.java:403) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.ChannelOperations.onInboundNext(ChannelOperations.java:425) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:115) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:346) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:333) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:455) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:290) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.AbstractEpollStreamChannel$EpollStreamUnsafe.epollInReady(AbstractEpollStreamChannel.java:799) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:501) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:399) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2024-10-30T18:09:17.646Z  WARN 104 --- [reactor-tcp-epoll-2] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
+2024-10-30T18:09:17.647Z  WARN 104 --- [reactor-tcp-epoll-7] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
+2024-10-30T18:09:17.647Z  WARN 104 --- [reactor-tcp-epoll-4] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
+2024-10-30T18:09:17.646Z  WARN 104 --- [reactor-tcp-epoll-8] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
+2024-10-30T18:09:17.646Z  WARN 104 --- [reactor-tcp-epoll-6] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
+2024-10-30T18:09:17.648Z  WARN 104 --- [reactor-tcp-epoll-1] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
+2024-10-30T18:09:17.647Z  WARN 104 --- [reactor-tcp-epoll-10] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
+2024-10-30T18:09:17.647Z  WARN 104 --- [reactor-tcp-epoll-5] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
+2024-10-30T18:09:17.648Z  WARN 104 --- [reactor-tcp-epoll-9] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
+2024-10-30T18:09:17.660Z  WARN 104 --- [reactor-tcp-epoll-3] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=FATAL, SEVERITY_NON_LOCALIZED=FATAL, CODE=57P01, MESSAGE=terminating connection due to administrator command, FILE=postgres.c, LINE=3315, ROUTINE=ProcessInterrupts
+2024-10-30T18:10:06.906Z  INFO 94 --- [main] org.example.Server                       : Starting Server using Java 21.0.5 with PID 94 (/app/server/target/classes started by root in /app/server)
+2024-10-30T18:10:06.909Z  INFO 94 --- [main] org.example.Server                       : No active profile set, falling back to 1 default profile: "default"
+2024-10-30T18:10:08.348Z  INFO 94 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
+2024-10-30T18:10:08.866Z  INFO 94 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 504 ms. Found 3 R2DBC repository interfaces.
+2024-10-30T18:10:12.977Z  WARN 94 --- [reactor-tcp-epoll-1] i.r.p.client.ReactorNettyClient          : Error: SEVERITY_LOCALIZED=ERROR, SEVERITY_NON_LOCALIZED=ERROR, CODE=42601, MESSAGE=syntax error at or near "user_ids", POSITION=256, FILE=scan.l, LINE=1244, ROUTINE=scanner_yyerror
+2024-10-30T18:10:13.008Z  WARN 94 --- [main] onfigReactiveWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'r2dbcScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/R2dbcInitializationConfiguration.class]: Failed to execute SQL script statement #2 of class path resource [schema.sql]: CREATE TABLE IF NOT EXISTS media ( id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, title VARCHAR(255) NOT NULL, release_date DATE NOT NULL, average_rating DECIMAL(4, 2) CHECK (average_rating >= 0 AND average_rating <= 10.0), type VARCHAR(20) NOT NULL user_ids BIGINT[] )
+2024-10-30T18:10:13.039Z  INFO 94 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-10-30T18:10:13.129Z ERROR 94 --- [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'r2dbcScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/R2dbcInitializationConfiguration.class]: Failed to execute SQL script statement #2 of class path resource [schema.sql]: CREATE TABLE IF NOT EXISTS media ( id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, title VARCHAR(255) NOT NULL, release_date DATE NOT NULL, average_rating DECIMAL(4, 2) CHECK (average_rating >= 0 AND average_rating <= 10.0), type VARCHAR(20) NOT NULL user_ids BIGINT[] )
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1806) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.refresh(ReactiveWebServerApplicationContext.java:66) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.example.Server.main(Server.java:20) ~[classes/:na]
+Caused by: org.springframework.r2dbc.connection.init.ScriptStatementFailedException: Failed to execute SQL script statement #2 of class path resource [schema.sql]: CREATE TABLE IF NOT EXISTS media ( id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, title VARCHAR(255) NOT NULL, release_date DATE NOT NULL, average_rating DECIMAL(4, 2) CHECK (average_rating >= 0 AND average_rating <= 10.0), type VARCHAR(20) NOT NULL user_ids BIGINT[] )
+	at org.springframework.r2dbc.connection.init.ScriptUtils.lambda$runStatement$9(ScriptUtils.java:571) ~[spring-r2dbc-6.1.13.jar:6.1.13]
+	at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onError(FluxOnErrorResume.java:94) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.MonoStreamCollector$StreamCollectorSubscriber.onError(MonoStreamCollector.java:149) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxFlatMap$FlatMapMain.checkTerminated(FluxFlatMap.java:846) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxFlatMap$FlatMapMain.drainLoop(FluxFlatMap.java:612) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxFlatMap$FlatMapMain.drain(FluxFlatMap.java:592) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxFlatMap$FlatMapMain.innerError(FluxFlatMap.java:867) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxFlatMap$FlatMapInner.onError(FluxFlatMap.java:994) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.MonoSingle$SingleSubscriber.onError(MonoSingle.java:150) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.onNext(FluxHandleFuseable.java:201) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxWindowPredicate$WindowFlux.drainRegular(FluxWindowPredicate.java:670) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxWindowPredicate$WindowFlux.drain(FluxWindowPredicate.java:748) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxWindowPredicate$WindowFlux.onNext(FluxWindowPredicate.java:790) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxWindowPredicate$WindowPredicateMain.onNext(FluxWindowPredicate.java:241) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxCreate$BufferAsyncSink.drain(FluxCreate.java:880) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxCreate$BufferAsyncSink.next(FluxCreate.java:805) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxCreate$SerializedFluxSink.next(FluxCreate.java:163) ~[reactor-core-3.6.10.jar:3.6.10]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$Conversation.emit(ReactorNettyClient.java:735) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.emit(ReactorNettyClient.java:986) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:860) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:767) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at reactor.core.publisher.FluxHandle$HandleSubscriber.onNext(FluxHandle.java:129) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.netty.channel.FluxReceive.drainReceiver(FluxReceive.java:294) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.FluxReceive.onInboundNext(FluxReceive.java:403) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.ChannelOperations.onInboundNext(ChannelOperations.java:425) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:115) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:346) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:333) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:455) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:290) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.AbstractEpollStreamChannel$EpollStreamUnsafe.epollInReady(AbstractEpollStreamChannel.java:799) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:501) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:399) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+	Suppressed: java.lang.Exception: #block terminated with an error
+		at reactor.core.publisher.BlockingSingleSubscriber.blockingGet(BlockingSingleSubscriber.java:104) ~[reactor-core-3.6.10.jar:3.6.10]
+		at reactor.core.publisher.Mono.block(Mono.java:1779) ~[reactor-core-3.6.10.jar:3.6.10]
+		at org.springframework.boot.r2dbc.init.R2dbcScriptDatabaseInitializer.runScripts(R2dbcScriptDatabaseInitializer.java:68) ~[spring-boot-3.3.4.jar:3.3.4]
+		at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.runScripts(AbstractScriptDatabaseInitializer.java:146) ~[spring-boot-3.3.4.jar:3.3.4]
+		at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyScripts(AbstractScriptDatabaseInitializer.java:108) ~[spring-boot-3.3.4.jar:3.3.4]
+		at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applySchemaScripts(AbstractScriptDatabaseInitializer.java:98) ~[spring-boot-3.3.4.jar:3.3.4]
+		at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.initializeDatabase(AbstractScriptDatabaseInitializer.java:76) ~[spring-boot-3.3.4.jar:3.3.4]
+		at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.afterPropertiesSet(AbstractScriptDatabaseInitializer.java:66) ~[spring-boot-3.3.4.jar:3.3.4]
+		at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853) ~[spring-beans-6.1.13.jar:6.1.13]
+		at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802) ~[spring-beans-6.1.13.jar:6.1.13]
+		at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.13.jar:6.1.13]
+		at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.13.jar:6.1.13]
+		at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.13.jar:6.1.13]
+		at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.13.jar:6.1.13]
+		at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.13.jar:6.1.13]
+		at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.13.jar:6.1.13]
+		at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.13.jar:6.1.13]
+		at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971) ~[spring-context-6.1.13.jar:6.1.13]
+		at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.13.jar:6.1.13]
+		at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.refresh(ReactiveWebServerApplicationContext.java:66) ~[spring-boot-3.3.4.jar:3.3.4]
+		at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.4.jar:3.3.4]
+		at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.4.jar:3.3.4]
+		at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.4.jar:3.3.4]
+		at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.4.jar:3.3.4]
+		at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.4.jar:3.3.4]
+		at org.example.Server.main(Server.java:20) ~[classes/:na]
+Caused by: io.r2dbc.postgresql.ExceptionFactory$PostgresqlBadGrammarException: syntax error at or near "user_ids"
+	at io.r2dbc.postgresql.ExceptionFactory.createException(ExceptionFactory.java:86) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.ExceptionFactory.handleErrorResponse(ExceptionFactory.java:111) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.PostgresqlResult.lambda$getRowsUpdated$0(PostgresqlResult.java:70) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.onNext(FluxHandleFuseable.java:179) ~[reactor-core-3.6.10.jar:3.6.10]
+	... 40 common frames omitted
+
+2024-10-30T18:11:31.512Z  INFO 91 --- [main] org.example.Server                       : Starting Server using Java 21.0.5 with PID 91 (/app/server/target/classes started by root in /app/server)
+2024-10-30T18:11:31.515Z  INFO 91 --- [main] org.example.Server                       : No active profile set, falling back to 1 default profile: "default"
+2024-10-30T18:11:32.903Z  INFO 91 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
+2024-10-30T18:11:33.408Z  INFO 91 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 492 ms. Found 3 R2DBC repository interfaces.
+2024-10-30T18:11:37.214Z  INFO 91 --- [main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8080 (http)
+2024-10-30T18:11:37.230Z  INFO 91 --- [main] org.example.Server                       : Started Server in 6.859 seconds (process running for 7.477)
+2024-10-30T18:11:44.979Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:11:49.187Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully created media with id: 1
+2024-10-30T18:11:54.817Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:11:59.495Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully created user with id: 1
+2024-10-30T18:12:05.014Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all users
+2024-10-30T18:12:26.067Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:12:33.165Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all users
+2024-10-30T18:12:42.864Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:12:57.787Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:27:22.294Z ERROR 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Failed to delete user with id: 1
+
+org.springframework.web.server.ResponseStatusException: 409 CONFLICT "User cannot be deleted because it is linked to media"
+	at org.example.service.UserService.lambda$deleteUser$1(UserService.java:53) ~[classes/:na]
+	at reactor.core.publisher.MonoFlatMap$FlatMapMain.onNext(MonoFlatMap.java:132) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.MonoNext$NextSubscriber.onNext(MonoNext.java:82) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxUsingWhen$UsingWhenSubscriber.onNext(FluxUsingWhen.java:348) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxDefaultIfEmpty$DefaultIfEmptySubscriber.onNext(FluxDefaultIfEmpty.java:122) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.MonoNext$NextSubscriber.onNext(MonoNext.java:82) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onNext(FluxOnErrorResume.java:79) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxUsingWhen$UsingWhenSubscriber.onNext(FluxUsingWhen.java:348) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxFlatMap$FlatMapMain.tryEmit(FluxFlatMap.java:547) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxFlatMap$FlatMapInner.onNext(FluxFlatMap.java:988) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxHandle$HandleSubscriber.onNext(FluxHandle.java:129) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.MonoFlatMapMany$FlatMapManyInner.onNext(MonoFlatMapMany.java:251) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.onNext(FluxHandleFuseable.java:194) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxFilterFuseable$FilterFuseableConditionalSubscriber.onNext(FluxFilterFuseable.java:337) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxContextWrite$ContextWriteSubscriber.onNext(FluxContextWrite.java:107) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+	at io.r2dbc.postgresql.util.FluxDiscardOnCancel$FluxDiscardOnCancelSubscriber.onNext(FluxDiscardOnCancel.java:86) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at reactor.core.publisher.FluxCreate$BufferAsyncSink.drain(FluxCreate.java:880) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxCreate$BufferAsyncSink.next(FluxCreate.java:805) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxCreate$SerializedFluxSink.next(FluxCreate.java:163) ~[reactor-core-3.6.10.jar:3.6.10]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$Conversation.emit(ReactorNettyClient.java:735) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.emit(ReactorNettyClient.java:986) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:860) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:767) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at reactor.core.publisher.FluxHandle$HandleSubscriber.onNext(FluxHandle.java:129) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.netty.channel.FluxReceive.drainReceiver(FluxReceive.java:294) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.FluxReceive.onInboundNext(FluxReceive.java:403) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.ChannelOperations.onInboundNext(ChannelOperations.java:425) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:115) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:346) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:333) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:455) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:290) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.AbstractEpollStreamChannel$EpollStreamUnsafe.epollInReady(AbstractEpollStreamChannel.java:799) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:501) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:399) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2024-10-30T18:27:31.803Z ERROR 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Failed to delete media with id: 1
+
+org.springframework.web.server.ResponseStatusException: 409 CONFLICT "Media cannot be deleted because it is linked to user"
+	at org.example.service.MediaService.lambda$deleteMedia$1(MediaService.java:55) ~[classes/:na]
+	at reactor.core.publisher.MonoFlatMap$FlatMapMain.onNext(MonoFlatMap.java:132) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.MonoNext$NextSubscriber.onNext(MonoNext.java:82) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxUsingWhen$UsingWhenSubscriber.onNext(FluxUsingWhen.java:348) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxDefaultIfEmpty$DefaultIfEmptySubscriber.onNext(FluxDefaultIfEmpty.java:122) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.MonoNext$NextSubscriber.onNext(MonoNext.java:82) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onNext(FluxOnErrorResume.java:79) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxUsingWhen$UsingWhenSubscriber.onNext(FluxUsingWhen.java:348) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxFlatMap$FlatMapMain.tryEmit(FluxFlatMap.java:547) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxFlatMap$FlatMapInner.onNext(FluxFlatMap.java:988) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxHandle$HandleSubscriber.onNext(FluxHandle.java:129) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.MonoFlatMapMany$FlatMapManyInner.onNext(MonoFlatMapMany.java:251) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxHandleFuseable$HandleFuseableSubscriber.onNext(FluxHandleFuseable.java:194) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxFilterFuseable$FilterFuseableConditionalSubscriber.onNext(FluxFilterFuseable.java:337) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxContextWrite$ContextWriteSubscriber.onNext(FluxContextWrite.java:107) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+	at io.r2dbc.postgresql.util.FluxDiscardOnCancel$FluxDiscardOnCancelSubscriber.onNext(FluxDiscardOnCancel.java:86) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at reactor.core.publisher.FluxCreate$BufferAsyncSink.drain(FluxCreate.java:880) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxCreate$BufferAsyncSink.next(FluxCreate.java:805) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxCreate$SerializedFluxSink.next(FluxCreate.java:163) ~[reactor-core-3.6.10.jar:3.6.10]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$Conversation.emit(ReactorNettyClient.java:735) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.emit(ReactorNettyClient.java:986) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:860) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at io.r2dbc.postgresql.client.ReactorNettyClient$BackendMessageSubscriber.onNext(ReactorNettyClient.java:767) ~[r2dbc-postgresql-0.8.8.RELEASE.jar:0.8.8.RELEASE]
+	at reactor.core.publisher.FluxHandle$HandleSubscriber.onNext(FluxHandle.java:129) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxPeekFuseable$PeekConditionalSubscriber.onNext(FluxPeekFuseable.java:854) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.10.jar:3.6.10]
+	at reactor.netty.channel.FluxReceive.drainReceiver(FluxReceive.java:294) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.FluxReceive.onInboundNext(FluxReceive.java:403) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.ChannelOperations.onInboundNext(ChannelOperations.java:425) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:115) ~[reactor-netty-core-1.1.22.jar:1.1.22]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:346) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:333) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:455) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:290) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.AbstractEpollStreamChannel$EpollStreamUnsafe.epollInReady(AbstractEpollStreamChannel.java:799) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:501) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:399) ~[netty-transport-classes-epoll-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2024-10-30T18:27:37.150Z  WARN 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Media with id: 2 not found
+2024-10-30T18:30:00.525Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:36:13.905Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:36:14.202Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:36:14.210Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:36:14.217Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:36:14.222Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:36:14.237Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:36:51.100Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:36:51.406Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:36:51.414Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:36:51.421Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:36:51.431Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:36:51.445Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:38:01.555Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:39:20.371Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:39:20.673Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:39:20.681Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:39:20.687Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:39:20.699Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:39:20.713Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:39:30.307Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:39:39.255Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully created media with id: 2
+2024-10-30T18:39:43.371Z  INFO 91 --- [reactor-http-epoll-4] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:39:54.505Z  INFO 91 --- [reactor-http-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:39:54.810Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:39:54.820Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:39:54.826Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:39:54.837Z  INFO 91 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:39:54.850Z  INFO 91 --- [reactor-http-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:40:15.001Z  INFO 91 --- [reactor-http-epoll-4] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:40:28.697Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:40:29.009Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:40:29.017Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:40:29.023Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:40:29.032Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:40:29.046Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:40:46.983Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:40:47.288Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:40:47.297Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:40:47.304Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:40:47.316Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:40:47.332Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:43:56.683Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully created media with id: 3
+2024-10-30T18:44:01.822Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully created media with id: 4
+2024-10-30T18:44:06.624Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully created media with id: 5
+2024-10-30T18:44:30.556Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully deleted media with id: 2
+2024-10-30T18:44:34.857Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully deleted media with id: 3
+2024-10-30T18:44:37.157Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully deleted media with id: 4
+2024-10-30T18:44:38.480Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully deleted media with id: 5
+2024-10-30T18:44:39.669Z  WARN 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Media with id: 6 not found
+2024-10-30T18:44:42.505Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully deleted media with id: 1
+2024-10-30T18:44:49.243Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:44:52.853Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully created media with id: 6
+2024-10-30T18:45:02.883Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully created media with id: 7
+2024-10-30T18:45:10.079Z  WARN 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Media with id: 1 not found
+2024-10-30T18:45:12.537Z  WARN 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Media with id: 2 not found
+2024-10-30T18:45:15.146Z  WARN 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Media with id: 3 not found
+2024-10-30T18:45:20.070Z  WARN 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Media with id: 4 not found
+2024-10-30T18:45:21.893Z  WARN 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Media with id: 5 not found
+2024-10-30T18:45:23.273Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully deleted media with id: 6
+2024-10-30T18:45:24.627Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully deleted media with id: 7
+2024-10-30T18:45:25.813Z  WARN 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Media with id: 8 not found
+2024-10-30T18:45:29.374Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:45:38.622Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully created media with id: 8
+2024-10-30T18:45:45.688Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully created media with id: 9
+2024-10-30T18:45:52.873Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully created media with id: 10
+2024-10-30T18:46:12.882Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:46:13.169Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:46:13.179Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:46:13.185Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:46:13.196Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:46:13.250Z  INFO 91 --- [reactor-http-epoll-11] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:46:13.260Z  INFO 91 --- [reactor-http-epoll-11] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:46:35.065Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:46:35.386Z  INFO 91 --- [reactor-http-epoll-12] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:46:35.395Z  INFO 91 --- [reactor-http-epoll-12] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:46:35.402Z  INFO 91 --- [reactor-http-epoll-12] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:46:35.413Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:46:35.429Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:46:35.439Z  INFO 91 --- [reactor-http-epoll-12] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:51:15.849Z  INFO 91 --- [reactor-http-epoll-1] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:51:16.160Z  INFO 91 --- [reactor-http-epoll-1] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:51:16.169Z  INFO 91 --- [reactor-http-epoll-1] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:51:16.176Z  INFO 91 --- [reactor-http-epoll-1] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:51:16.187Z  INFO 91 --- [reactor-http-epoll-1] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:51:16.201Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:51:16.210Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:51:30.184Z  INFO 91 --- [reactor-http-epoll-2] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:51:30.485Z  INFO 91 --- [reactor-http-epoll-2] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:51:30.493Z  INFO 91 --- [reactor-http-epoll-2] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:51:30.500Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:51:30.511Z  INFO 91 --- [reactor-http-epoll-2] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:51:30.525Z  INFO 91 --- [reactor-http-epoll-2] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:51:30.534Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:51:46.286Z  INFO 91 --- [reactor-http-epoll-4] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:54:22.053Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:54:22.368Z  INFO 91 --- [reactor-http-epoll-5] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:54:22.376Z  INFO 91 --- [reactor-http-epoll-5] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:54:22.383Z  INFO 91 --- [reactor-http-epoll-5] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:54:22.393Z  INFO 91 --- [reactor-http-epoll-5] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:54:22.406Z  INFO 91 --- [reactor-http-epoll-5] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:54:22.413Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:54:42.265Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:54:42.570Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:54:42.578Z  INFO 91 --- [reactor-http-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:54:42.584Z  INFO 91 --- [reactor-http-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:54:42.595Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:54:42.611Z  INFO 91 --- [reactor-http-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:54:42.618Z  INFO 91 --- [reactor-http-epoll-6] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:55:44.492Z  INFO 91 --- [reactor-http-epoll-7] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:55:44.778Z  INFO 91 --- [reactor-http-epoll-7] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:55:44.786Z  INFO 91 --- [reactor-http-epoll-7] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:55:44.793Z  INFO 91 --- [reactor-http-epoll-7] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:55:44.804Z  INFO 91 --- [reactor-http-epoll-7] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:55:44.817Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-10-30T18:55:44.824Z  INFO 91 --- [reactor-http-epoll-7] org.example.controller.MediaController   : Successfully fetched all media

@@ -5,11 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdbe4c62-49ab-4bec-9486-20698a8d7040" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/client/report.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/org/example/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/org/example/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/org/example/model/Media.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/org/example/model/Media.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/org/example/model/UserMedia.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/logs/myapp.log" beforeDir="false" afterPath="$PROJECT_DIR$/server/logs/myapp.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/org/example/controller/MediaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/org/example/controller/MediaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/org/example/controller/UserMediaController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/org/example/model/Media.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/org/example/model/Media.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/org/example/service/MediaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/org/example/service/MediaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/org/example/service/UserMediaService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/schema.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,6 +171,7 @@
       <workItem from="1729637160693" duration="2078000" />
       <workItem from="1729783087975" duration="11237000" />
       <workItem from="1729935912372" duration="10861000" />
+      <workItem from="1730291624241" duration="15343000" />
     </task>
     <servers />
   </component>

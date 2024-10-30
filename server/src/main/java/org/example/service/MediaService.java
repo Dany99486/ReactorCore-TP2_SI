@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.model.Media;
+import org.example.model.UserMedia;
 import org.example.repository.MediaRepository;
 import org.example.repository.UserMediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class MediaService {
@@ -53,6 +57,44 @@ public class MediaService {
                     return mediaRepository.deleteById(id);
                 }
             });
+    }
+
+    // Adicionar um usuário a uma mídia
+    public Mono<Media> addUserToMedia(Long mediaId, Long userId) {
+        return mediaRepository.findById(mediaId)
+                .flatMap(media -> {
+                    // Adiciona o ID do usuário na lista da mídia
+                    Set<Long> userIds = media.getUserIds() != null ? media.getUserIds() : new HashSet<>();
+                    userIds.add(userId);
+                    media.setUserIds(userIds);
+
+                    // Salva a relação na tabela de junção
+                    UserMedia userMedia = new UserMedia();
+                    userMedia.setUserId(userId);
+                    userMedia.setMediaId(mediaId);
+
+                    return userMediaRepository.save(userMedia)
+                            .then(mediaRepository.save(media)); // Salva a mídia atualizada
+                });
+    }
+
+    // Remover um usuário de uma mídia
+    public Mono<Media> removeUserFromMedia(Long mediaId, Long userId) {
+        return mediaRepository.findById(mediaId)
+                .flatMap(media -> {
+                    // Remove o ID do usuário na lista da mídia
+                    Set<Long> userIds = media.getUserIds();
+                    if (userIds != null) {
+                        userIds.remove(userId);
+                        media.setUserIds(userIds);
+                    }
+
+                    // Remove a relação da tabela de junção
+                    return userMediaRepository.findAll()
+                            .filter(userMedia -> userMedia.getMediaId().equals(mediaId) && userMedia.getUserId().equals(userId))
+                            .flatMap(userMediaRepository::delete)
+                            .then(mediaRepository.save(media)); // Salva a mídia atualizada
+                });
     }
 
 }

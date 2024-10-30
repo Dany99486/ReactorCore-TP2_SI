@@ -87,4 +87,15 @@ public class MediaController {
                 }))
                 .doOnError(error -> logger.error("Failed to delete media with id: {}", id));
     }
+    @PostMapping("/{mediaId}/users/{userId}")
+    public Mono<Media> addUserToMedia(@PathVariable Long mediaId, @PathVariable Long userId) {
+        return mediaService.addUserToMedia(mediaId, userId);
+    }
+
+    @DeleteMapping("/{mediaId}/users/{userId}")
+    public Mono<Media> removeUserFromMedia(@PathVariable Long mediaId, @PathVariable Long userId) {
+        return mediaService.removeUserFromMedia(mediaId, userId);
+    }
+
+
 }

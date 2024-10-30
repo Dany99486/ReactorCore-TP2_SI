@@ -2,6 +2,7 @@ package org.example.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
 import jakarta.validation.constraints.Max;
@@ -11,12 +12,16 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Min;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Table("media") // Nome da tabela que mapeia a relação
 public class Media {
     @Id
     private Long id; // Identificador da relação
+
+    private Set<Long> userIds;
 
     @NotBlank(message = "Title is mandatory")
     private String title;
