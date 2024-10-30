@@ -1,17 +1,18 @@
 package org.example;
 
 import org.example.model.Media;
+import org.example.util.Stats;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Comparator;
-import java.util.List;
 
 
 public class Client {
     static final String BaseUrl = "http://localhost:8080";
+    static final String FileName = "report.txt";
 
     public static void main(String[] args) {
 
@@ -88,38 +89,21 @@ public class Client {
                 .retrieve()
                 .bodyToFlux(Media.class)
                 .map(Media::getAverageRating)
-                .collectList()
-                .doOnNext(ratings -> {
-                    double average = ratings.stream().mapToDouble(Double::doubleValue).average().orElse(0);
-                    double stdDev = Math.sqrt(ratings.stream().mapToDouble(r -> Math.pow(r - average, 2)).average().orElse(0));
-                    report.append("Média das classificações: ").append(average).append("\n")
-                            .append("Desvio padrão das classificações: ").append(stdDev).append("\n");
+                .reduce(new Stats(), (stats, rating) -> {
+                    stats.addValue(rating);
+                    return stats;
                 })
-                .block(); // Aguarda a conclusão do fluxo
+                .doOnNext(stats -> {
+                    report.append("Média das classificações: ").append(stats.getMean()).append("\n")
+                            .append("Desvio padrão das classificações: ").append(stats.getStandardDeviation()).append("\n");
+                })
+                .block(); // Aguarda a conclusão do fluxo // Aguarda a conclusão do fluxo
         report.append("\n---\n\n");
 
-        try {
-            Thread.sleep(10*1000);
-        } catch (InterruptedException e) {
-            System.err.println("Error: " + e.getMessage());
-        }
-
         // Gravação no ficheiro
-        saveToFile("report.txt", report.toString());
+        saveToFile(FileName, report.toString());
     }
 
-    public static double calculateAverage(List<Double> list) {
-        float sum = 0;
-        for (Double i : list) {
-            sum += i;
-        }
-        return sum / list.size();
-    }
-
-    // Função para calcular o desvio padrão
-    public static double calculateStandardDeviation(double sumOfSquares, double sum, long size, float mean) {
-        return Math.sqrt((sumOfSquares / size) - (mean * mean));
-    }
     private static void saveToFile(String filename, String content) {
         try (FileWriter writer = new FileWriter(filename)) {
             writer.write(content);
