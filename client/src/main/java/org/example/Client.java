@@ -7,9 +7,11 @@ import org.example.util.Stats;
 import org.example.util.UserMediaInfo;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Comparator;
 
@@ -34,7 +36,7 @@ public class Client {
                 .doOnNext(media -> report.append("Title: ").append(media.getTitle())
                         .append(", Release Date: ").append(media.getReleaseDate()).append("\n"))
                 .blockLast();
-        report.append("\n---\n\n");
+        report.append("\n\n\n");
 
         // Função 2: Contagem total de itens de mídia
         report.append("### 2. Contagem total de itens de mídia ###\n");
@@ -45,7 +47,7 @@ public class Client {
                 .count()
                 .doOnNext(count -> report.append("Total media items: ").append(count).append("\n"))
                 .block();
-        report.append("\n---\n\n");
+        report.append("\n\n\n");
 
         // Função 3: Contagem de itens de mídia com classificação média > 8
         report.append("### 3. Contagem de itens de mídia com classificação média > 8 ###\n");
@@ -57,7 +59,7 @@ public class Client {
                 .count()
                 .doOnNext(count -> report.append("Media items with rating > 8: ").append(count).append("\n"))
                 .block();
-        report.append("\n---\n\n");
+        report.append("\n\n\n");
 
         // Função 4: Contagem total de itens de mídia subscritos
         report.append("### 4. Contagem total de itens de mídia subscritos ###\n");
@@ -69,7 +71,7 @@ public class Client {
                 .count()
                 .doOnNext(count -> report.append("Total subscribed media items: ").append(count).append("\n"))
                 .block();
-        report.append("\n---\n\n");
+        report.append("\n\n\n");
 
         // Função 5: Itens dos anos 80, ordenados pela média de classificação
         report.append("### 5. Itens dos anos 80, ordenados pela média de classificação ###\n");
@@ -87,7 +89,7 @@ public class Client {
                         .append(", Release Date: ").append(media.getReleaseDate())
                         .append(", Rating: ").append(media.getAverageRating()).append("\n"))
                 .blockLast();
-        report.append("\n---\n\n");
+        report.append("\n\n\n");
 
         report.append("### 6. Média e desvio padrão das classificações ###\n");
         client.get()
@@ -104,7 +106,7 @@ public class Client {
                             .append("Desvio padrão das classificações: ").append(stats.getStandardDeviation()).append("\n")
                 )
                 .block(); // Aguarda a conclusão do fluxo // Aguarda a conclusão do fluxo
-        report.append("\n---\n\n");
+        report.append("\n\n\n");
 
         // Função 7: Nome do item de mídia mais antigo
         report.append("### 7. Nome do item de mídia mais antigo ###\n");
@@ -116,28 +118,30 @@ public class Client {
                 .next() // Pega apenas o próximo item após a ordenação (o mais antigo)
                 .doOnNext(media -> report.append("Oldest media item: ").append(media.getTitle()).append("\n"))
                 .block(); // Aguarda a conclusão do fluxo
-        report.append("\n---\n\n");
+        report.append("\n\n\n");
 
         // Função 8: Média de usuários por item de mídia
         report.append("### 8. Média de usuários por item de mídia ###\n");
         client.get()
-                .uri("/user")
+                .uri("/media") // Obtem todos os itens de mídia
                 .retrieve()
-                .bodyToFlux(User.class)
-                .count()
-                .zipWith(
-                        client.get()
-                                .uri("/media")
-                                .retrieve()
-                                .bodyToFlux(Media.class)
-                                .count()
-                )
-                .doOnNext(tuple -> {
-                    double average = tuple.getT2() == 0 ? 0 : (double) tuple.getT1() / tuple.getT2();
-                    report.append("Average number of users per media item: ").append(average).append("\n");
+                .bodyToFlux(Media.class)
+                .map(media -> media.getUserIds() != null ? media.getUserIds().size() : 0) // Conta o número de usuários para cada item
+                .reduce(new long[]{0, 0}, (acc, count) -> {
+                    acc[0] += count; // Soma total de usuários
+                    acc[1]++; // Conta todos os itens de mídia
+                    return acc;
                 })
-                .block();
-        report.append("\n---\n\n");
+                .map(acc -> {
+                    long totalUsers = acc[0]; // Total de usuários somados
+                    long totalItems = acc[1];  // Total de itens de mídia
+                    // Calcula a média ou retorna 0 se não houver itens
+                    return totalItems == 0 ? 0.0 : (double) totalUsers / totalItems;
+                })
+                .doOnNext(average -> report.append("Average users per media item: ").append(average).append("\n"))
+                .block(); // Aguarda a conclusão do fluxo
+        report.append("\n\n\n");
+
 
         // Função 9: Nome e número de usuários por item de mídia, ordenados pela idade dos usuários em ordem decrescente
         report.append("### 9. Nome e número de usuários por item de mídia, ordenados pela idade dos usuários em ordem decrescente ###\n");
@@ -169,7 +173,7 @@ public class Client {
                     }
                 })
                 .blockLast(); // Aguarda a conclusão de todo o fluxo
-        report.append("\n---\n\n");
+        report.append("\n\n\n");
 
         report.append("### 10. Complete data of all users, by adding the names of subscribed media items ###\n");
         client.get()
@@ -183,7 +187,7 @@ public class Client {
                             .uri("/media") // Endpoint para obter todas as mídias
                             .retrieve()
                             .bodyToFlux(Media.class)
-                            .filter(media -> media.getUserIds() != null && media.getUserIds().contains(user.getId()))
+                            .filter(media -> media.getUserIds() != null && media.getUserIds().contains(user.getId())) // Mantém as mídias inscritas pelo utilizador
                             .doOnNext(media -> userInfo.addMediaTitle(media.getTitle())) // Adiciona o título da mídia ao UserMediaInfo
                             .then(Mono.just(userInfo)); // Retorna o UserMediaInfo completo
                 })
@@ -197,11 +201,7 @@ public class Client {
                     }
                 })
                 .blockLast(); // Aguarda a conclusão de todo o fluxo
-        report.append("\n---\n\n");
-
-
-
-
+        report.append("\n\n\n");
 
         // Gravação no ficheiro
         saveToFile(report.toString());
