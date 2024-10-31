@@ -6,6 +6,7 @@ import org.example.util.MediaUserCount;
 import org.example.util.Stats;
 import org.example.util.UserMediaInfo;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.retry.Retry;
 
@@ -201,6 +202,34 @@ public class Client {
                     }
                 })
                 .blockLast(); // Aguarda a conclusão de todo o fluxo
+        report.append("\n\n\n");
+
+        // Network Failure: Failure of network connection
+        report.append("### Network Failure Test ###\n");
+        client.get()
+                .uri("/media/networkfailure") // Obtem todos os itens de mídia
+                .retrieve()
+                .bodyToFlux(Media.class)
+                .map(media -> media.getUserIds() != null ? media.getUserIds().size() : 0) // Conta o número de usuários para cada item
+                .reduce(new long[]{0, 0}, (acc, count) -> {
+                    acc[0] += count; // Soma total de usuários
+                    acc[1]++; // Conta todos os itens de mídia
+                    return acc;
+                })
+                .map(acc -> {
+                    long totalUsers = acc[0]; // Total de usuários somados
+                    long totalItems = acc[1];  // Total de itens de mídia
+                    // Calcula a média ou retorna 0 se não houver itens
+                    return totalItems == 0 ? 0.0 : (double) totalUsers / totalItems;
+                })
+                .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(4))) // Tenta novamente 3 vezes com 4 segundos de intervalo
+                .doOnNext(average -> report.append("Average users per media item: ").append(average).append("\n"))
+                .doOnError(error -> report.append("Failed to calculate average users: ").append(error.getMessage()).append("\n")) // Log de erro
+                .onErrorResume(error -> {
+                    report.append("Returning default value of 0.0 due to error: ").append(error.getMessage()).append("\n"); // Mensagem ao retornar 0.0
+                    return Mono.just(0.0); // Retorna um valor padrão
+                })
+                .block(); // Aguarda a conclusão do fluxo
         report.append("\n\n\n");
 
         // Gravação no ficheiro

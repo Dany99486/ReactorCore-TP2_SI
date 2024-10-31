@@ -1,34 +1,33 @@
 ### 1. Títulos e datas de lançamento de todos os itens de mídia ###
-Title: The Matrix, Release Date: 1989-03-31
-Title: The Matrix 84, Release Date: 1984-03-31
+Title: The Matrix 1000, Release Date: 1000-03-31
+Title: The Matrix 1000, Release Date: 1000-03-31
+Title: The Matrix 1000, Release Date: 1000-03-31
 Title: The Matrix 1000, Release Date: 1000-03-31
 
 
 
 ### 2. Contagem total de itens de mídia ###
-Total media items: 3
+Total media items: 4
 
 
 
 ### 3. Contagem de itens de mídia com classificação média > 8 ###
-Media items with rating > 8: 1
+Media items with rating > 8: 0
 
 
 
 ### 4. Contagem total de itens de mídia subscritos ###
-Total subscribed media items: 3
+Total subscribed media items: 1
 
 
 
 ### 5. Itens dos anos 80, ordenados pela média de classificação ###
-Title: The Matrix, Release Date: 1989-03-31, Rating: 7.8
-Title: The Matrix 84, Release Date: 1984-03-31, Rating: 6.8
 
 
 
 ### 6. Média e desvio padrão das classificações ###
-Média das classificações: 8.166666666666666
-Desvio padrão das classificações: 1.582192571507443
+Média das classificações: 5.9
+Desvio padrão das classificações: 0.0
 
 
 
@@ -38,35 +37,29 @@ Oldest media item: The Matrix 1000
 
 
 ### 8. Média de usuários por item de mídia ###
-Average users per media item: 2.0
+Average users per media item: 0.25
 
 
 
 ### 9. Nome e número de usuários por item de mídia, ordenados pela idade dos usuários em ordem decrescente ###
-Title: The Matrix, Number of users: 2
-  - Name: Sousa, Age: 27
-  - Name: Daniela Sousa, Age: 25
-Title: The Matrix 84, Number of users: 3
-  - Name: Sousa, Age: 27
-  - Name: Daniela Sousa, Age: 25
-  - Name: Daniel Bravo, Age: 20
+Title: The Matrix 1000, Number of users: 0
+Title: The Matrix 1000, Number of users: 0
+Title: The Matrix 1000, Number of users: 0
 Title: The Matrix 1000, Number of users: 1
-  - Name: Daniela Sousa, Age: 25
+  - Name: Zé, Age: 50
 
 
 
 ### 10. Complete data of all users, by adding the names of subscribed media items ###
-User: Passos, Age: 30, Gender: Male
 User: Zé, Age: 50, Gender: Male
-User: Sousa, Age: 27, Gender: Male
-  - Subscribed Media: The Matrix
-  - Subscribed Media: The Matrix 84
-User: Daniel Bravo, Age: 20, Gender: Male
-  - Subscribed Media: The Matrix 84
-User: Daniela Sousa, Age: 25, Gender: Female
-  - Subscribed Media: The Matrix
-  - Subscribed Media: The Matrix 84
   - Subscribed Media: The Matrix 1000
+User: Zé, Age: 50, Gender: Male
+
+
+
+### Network Failure Test ###
+Failed to calculate average users: Retries exhausted: 2/2
+Returning default value of 0.0 due to error: Retries exhausted: 2/2
 
 
 

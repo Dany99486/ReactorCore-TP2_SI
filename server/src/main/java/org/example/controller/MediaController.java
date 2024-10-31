@@ -14,11 +14,15 @@ import jakarta.validation.Valid;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @RestController
 @RequestMapping("/media")
 public class MediaController {
 
     private static final Logger logger = LoggerFactory.getLogger(MediaController.class);
+    private final AtomicInteger failureCounter = new AtomicInteger(0); // Contador de falhas
+
 
     @Autowired
     private MediaService mediaService;
@@ -88,6 +92,26 @@ public class MediaController {
                 .doOnError(error -> logger.error("Failed to delete media with id: {}", id));
     }
 
+    @GetMapping(value = "/networkfailure", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Flux<Media> networkFailure() {
+        int attempt = failureCounter.incrementAndGet(); // Incrementa o contador a cada chamada
+
+        // Falha nas 3 primeiras tentativas
+        if (attempt <= 3) {
+            logger.warn("Simulated network failure - Attempt: {}", attempt); // Log de falha
+            return Flux.error(new RuntimeException("Simulated network failure - Attempt: " + attempt));
+        } else {
+            logger.info("Fetching media after {} failed attempts", attempt); // Log de sucesso após falhas
+        }
+
+        // Após 3 falhas, retorna os dados normalmente
+        return mediaService.getAllMedia()
+                .doOnComplete(() -> {
+                    logger.info("Successfully fetched all media in attempt: {}", attempt);
+                    failureCounter.set(0); // Reseta o contador após sucesso
+                })
+                .doOnError(error -> logger.error("[Network Failure] Failed to fetch all media", error));
+    }
 
 
 }
