@@ -2,8 +2,11 @@ package org.example;
 
 import org.example.model.Media;
 import org.example.model.User;
+import org.example.util.MediaUserCount;
 import org.example.util.Stats;
+import org.example.util.UserMediaInfo;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -96,10 +99,10 @@ public class Client {
                     stats.addValue(rating);
                     return stats;
                 })
-                .doOnNext(stats -> {
-                    report.append("Média das classificações: ").append(stats.getMean()).append("\n")
-                            .append("Desvio padrão das classificações: ").append(stats.getStandardDeviation()).append("\n");
-                })
+                .doOnNext(stats ->
+                        report.append("Média das classificações: ").append(stats.getMean()).append("\n")
+                            .append("Desvio padrão das classificações: ").append(stats.getStandardDeviation()).append("\n")
+                )
                 .block(); // Aguarda a conclusão do fluxo // Aguarda a conclusão do fluxo
         report.append("\n---\n\n");
 
@@ -114,43 +117,101 @@ public class Client {
                 .doOnNext(media -> report.append("Oldest media item: ").append(media.getTitle()).append("\n"))
                 .block(); // Aguarda a conclusão do fluxo
         report.append("\n---\n\n");
-        // Gravação no ficheiro
-        saveToFile(FileName, report.toString());
 
         // Função 8: Média de usuários por item de mídia
         report.append("### 8. Média de usuários por item de mídia ###\n");
+        client.get()
+                .uri("/user")
+                .retrieve()
+                .bodyToFlux(User.class)
+                .count()
+                .zipWith(
+                        client.get()
+                                .uri("/media")
+                                .retrieve()
+                                .bodyToFlux(Media.class)
+                                .count()
+                )
+                .doOnNext(tuple -> {
+                    double average = tuple.getT2() == 0 ? 0 : (double) tuple.getT1() / tuple.getT2();
+                    report.append("Average number of users per media item: ").append(average).append("\n");
+                })
+                .block();
+        report.append("\n---\n\n");
 
+        // Função 9: Nome e número de usuários por item de mídia, ordenados pela idade dos usuários em ordem decrescente
+        report.append("### 9. Nome e número de usuários por item de mídia, ordenados pela idade dos usuários em ordem decrescente ###\n");
         client.get()
                 .uri("/media") // Endpoint para obter todos os itens de mídia
                 .retrieve()
                 .bodyToFlux(Media.class)
-                .flatMap(media ->
-                        client.get()
-                                .uri("/user-media/media/{mediaId}", media.getId()) // Obtém usuários por ID do item de mídia
-                                .retrieve()
-                                .bodyToFlux(User.class) // Fluxo de usuários
-                                .count() // Conta o número de usuários para este item de mídia
-                                .map(userCount -> new long[]{1, userCount}) // Retorna um array com [1, userCount]
-                )
-                .reduce(new long[]{0, 0}, (acc, counts) -> {
-                    // Soma o total de itens de mídia e o total de usuários
-                    return new long[]{acc[0] + counts[0], acc[1] + counts[1]};
+                .flatMap(media -> {
+                    MediaUserCount mediaUserCount = new MediaUserCount();
+                    mediaUserCount.setTitle(media.getTitle());
+                    mediaUserCount.setUserCount(media.getUserIds() != null ? media.getUserIds().size() : 0);
+                    // Processa os usuários e atualiza o relatório gradualmente
+                    return client.get()
+                            .uri("/user") // Obtém todos os usuários
+                            .retrieve()
+                            .bodyToFlux(User.class)
+                            .filter(user -> user.getMediaIds() != null && user.getMediaIds().contains(media.getId()))
+                            .sort(Comparator.comparing(User::getAge).reversed())
+                            .doOnNext(mediaUserCount::addUser)
+                            .then(Mono.just(mediaUserCount)); // Retorna o MediaUserCount atualizado
                 })
-                .doOnNext(result -> {
-                    // Calcula a média
-                    double average = result[0] == 0 ? 0 : (double) result[1] / result[0];
-                    report.append("Average number of users per media item: ").append(average).append("\n");
+                .doOnNext(mediaUserCount -> {
+                    // Adiciona título e número de usuários ao relatório para cada item de mídia
+                    report.append("Title: ").append(mediaUserCount.getTitle())
+                            .append(", Number of users: ").append(mediaUserCount.getUserCount()).append("\n");
+                    for(User user: mediaUserCount.getUsers()){
+                        report.append("  - Name: ").append(user.getName())
+                                    .append(", Age: ").append(user.getAge()).append("\n");
+                    }
                 })
-                .block(); // Aguarda a conclusão do fluxo
-
+                .blockLast(); // Aguarda a conclusão de todo o fluxo
         report.append("\n---\n\n");
+
+        report.append("### 10. Complete data of all users, by adding the names of subscribed media items ###\n");
+        client.get()
+                .uri("/user") // Endpoint para obter todos os usuários
+                .retrieve()
+                .bodyToFlux(User.class)
+                .flatMap(user -> {
+                    UserMediaInfo userInfo = new UserMediaInfo(user.getName(), user.getAge(),user.getGender());
+
+                    return client.get()
+                            .uri("/media") // Endpoint para obter todas as mídias
+                            .retrieve()
+                            .bodyToFlux(Media.class)
+                            .filter(media -> media.getUserIds() != null && media.getUserIds().contains(user.getId()))
+                            .doOnNext(media -> userInfo.addMediaTitle(media.getTitle())) // Adiciona o título da mídia ao UserMediaInfo
+                            .then(Mono.just(userInfo)); // Retorna o UserMediaInfo completo
+                })
+                .doOnNext(userInfo -> {
+                    // Adiciona os dados do usuário e os títulos das mídias ao relatório
+                    report.append("User: ").append(userInfo.getName())
+                            .append(", Age: ").append(userInfo.getAge())
+                            .append(", Gender: ").append(userInfo.getGender()).append("\n");
+                    for (String title : userInfo.getMediaTitles()) {
+                        report.append("  - Subscribed Media: ").append(title).append("\n");
+                    }
+                })
+                .blockLast(); // Aguarda a conclusão de todo o fluxo
+        report.append("\n---\n\n");
+
+
+
+
+
+        // Gravação no ficheiro
+        saveToFile(report.toString());
 
     }
 
-    private static void saveToFile(String filename, String content) {
-        try (FileWriter writer = new FileWriter(filename)) {
+    private static void saveToFile(String content) {
+        try (FileWriter writer = new FileWriter(Client.FileName)) {
             writer.write(content);
-            System.out.println("Report saved to " + filename);
+            System.out.println("Report saved to " + Client.FileName);
         } catch (IOException e) {
             e.printStackTrace();
         }

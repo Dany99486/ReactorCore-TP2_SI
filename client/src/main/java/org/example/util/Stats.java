@@ -1,9 +1,5 @@
 package org.example.util;
 
-import reactor.core.publisher.Flux;
-import reactor.util.function.Tuple2;
-import reactor.util.function.Tuples;
-
 public class Stats {
     private double count = 0;
     private double mean = 0;
