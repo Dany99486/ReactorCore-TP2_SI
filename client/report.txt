@@ -55,13 +55,13 @@ Title: The Matrix 3000, Number of users: 3
 ### 10. Complete data of all users, by adding the names of subscribed media items ###
 User: Passos, Age: 30, Gender: Male
 User: Zé, Age: 50, Gender: Male
-User: Daniel Bravo, Age: 20, Gender: Male
+User: Sousa, Age: 27, Gender: Male
+  - Subscribed Media: The Matrix 2000
   - Subscribed Media: The Matrix 3000
 User: Daniela Sousa, Age: 25, Gender: Female
   - Subscribed Media: The Matrix 2000
   - Subscribed Media: The Matrix 3000
-User: Sousa, Age: 27, Gender: Male
-  - Subscribed Media: The Matrix 2000
+User: Daniel Bravo, Age: 20, Gender: Male
   - Subscribed Media: The Matrix 3000
 
 ---

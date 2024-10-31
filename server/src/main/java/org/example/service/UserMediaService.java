@@ -7,6 +7,7 @@ import org.example.repository.UserMediaRepository;
 import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.HashSet;
@@ -76,5 +77,12 @@ public class UserMediaService {
                                     .then()) // Converte para Mono<Void>
                             .then(mediaRepository.save(media)); // Salva a mídia atualizada
                 });
+    }
+
+    public Flux<Long> getMediaIdsByUserId(Long userId) {
+        return userMediaRepository.findMediaIdsByUserId(userId);
+    }
+    public Flux<Long> getUserIdsByMediaId(Long userId) {
+        return userMediaRepository.findUserIdsByMediaId(userId);
     }
 }
