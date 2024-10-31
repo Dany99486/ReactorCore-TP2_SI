@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    env_file: .env
+    networks:
+      - server-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  server:
+    working_dir: /app/server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    command: mvn spring-boot:run
+    env_file: .env
+    networks:
+      - server-network
+    volumes:
+      - ./server:/app/server
+    user: root
+    ports:
+      - 8080:8080
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  client:
+    working_dir: /app/client
+    build:
+      context: . # Contexto para o build do cliente
+      dockerfile: Dockerfile  # Usar o mesmo Dockerfile
+    depends_on:
+      - server  # Depende do servidor
+    command: mvn spring-boot:run  # Comando para iniciar o cliente
+    volumes:
+      - ./client:/app/client  # Mapear o diretório do cliente
+    network_mode: "host"
+
+networks:
+  server-network:
