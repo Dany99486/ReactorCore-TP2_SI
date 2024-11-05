@@ -43,10 +43,10 @@ Average users per media item: 0.25
 
 ### 9. Nome e número de usuários por item de mídia, ordenados pela idade dos usuários em ordem decrescente ###
 Title: The Matrix 1000, Number of users: 0
-Title: The Matrix 1000, Number of users: 0
-Title: The Matrix 1000, Number of users: 0
 Title: The Matrix 1000, Number of users: 1
   - Name: Zé, Age: 50
+Title: The Matrix 1000, Number of users: 0
+Title: The Matrix 1000, Number of users: 0
 
 
 

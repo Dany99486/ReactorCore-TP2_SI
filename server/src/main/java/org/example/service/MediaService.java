@@ -34,13 +34,7 @@ public class MediaService {
     // Método para atualizar uma mídia
     public Mono<Media> updateMedia(Long id, Media media) {
         return mediaRepository.findById(id)
-                .flatMap(existingMedia -> {
-                    existingMedia.setTitle(media.getTitle());
-                    existingMedia.setReleaseDate(media.getReleaseDate());
-                    existingMedia.setAverageRating(media.getAverageRating());
-                    existingMedia.setType(media.getType());
-                    return mediaRepository.save(existingMedia);
-                })
+                .flatMap( existingMedia -> mediaRepository.save(media))
                 .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Media not found")));
     }
 

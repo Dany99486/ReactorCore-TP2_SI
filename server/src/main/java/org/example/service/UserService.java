@@ -36,12 +36,7 @@ public class UserService {
     // Método para atualizar um usuário
     public Mono<User> updateUser(Long id, User user) {
         return userRepository.findById(id)
-                .flatMap(existingUser -> {
-                    existingUser.setName(user.getName());
-                    existingUser.setAge(user.getAge());
-                    existingUser.setGender(user.getGender());
-                    return userRepository.save(existingUser);
-                })
+                .flatMap(existingUser -> userRepository.save(user))
                 .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")));
     }
 
