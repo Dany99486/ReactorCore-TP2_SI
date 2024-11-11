@@ -296,3 +296,15 @@ Original Stack Trace:
 2024-11-05T16:52:42.426Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully created media with id: 5
 2024-11-05T16:52:50.420Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully created media with id: 6
 2024-11-05T16:53:08.223Z  INFO 91 --- [reactor-tcp-epoll-9] org.example.controller.MediaController   : Successfully fetched all media
+2024-11-11T22:45:54.847Z  INFO 96 --- [main] org.example.Server                       : Starting Server using Java 21.0.5 with PID 96 (/app/server/target/classes started by root in /app/server)
+2024-11-11T22:45:54.849Z  INFO 96 --- [main] org.example.Server                       : No active profile set, falling back to 1 default profile: "default"
+2024-11-11T22:45:56.362Z  INFO 96 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
+2024-11-11T22:45:56.868Z  INFO 96 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 492 ms. Found 3 R2DBC repository interfaces.
+2024-11-11T22:46:00.819Z  INFO 96 --- [main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8080 (http)
+2024-11-11T22:46:00.836Z  INFO 96 --- [main] org.example.Server                       : Started Server in 7.061 seconds (process running for 7.647)
+2024-11-11T22:46:06.470Z  INFO 96 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
+2024-11-11T22:46:13.457Z  WARN 96 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Media with id: 1 not found
+2024-11-11T22:46:19.600Z  INFO 96 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully created media with id: 1
+2024-11-11T22:46:24.975Z  INFO 96 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully updated media with id: 1
+2024-11-11T22:46:27.085Z  INFO 96 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully updated media with id: 1
+2024-11-11T22:46:30.647Z  INFO 96 --- [reactor-tcp-epoll-10] org.example.controller.MediaController   : Successfully fetched all media
